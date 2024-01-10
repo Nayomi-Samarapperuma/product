@@ -21,7 +21,7 @@
                             </Link>
                         </li>
 
-                        <li class="nav-item" v-if="can('read_materials')">
+                        <li class="nav-item" >
                             <a class="nav-link" href="#materialMenu" data-toggle="collapse" aria-expanded="true">
                                 <font-awesome-icon icon="fa-solid fa-folder-open" /><span class="ml-2">Material</span>
                             </a>
@@ -29,7 +29,7 @@
                                 class=" list-unstyled" id="materialMenu">
                                 <li class="nav-item">
                                     <Link :class="{ 'active': $page.url.startsWith('/materials') }"
-                                        class="nav-link active-preloader" :href="route('material.index')">
+                                        class="nav-link active-preloader">
                                     <font-awesome-icon icon="fa-solid fa-folder " class="ml-4" />
                                     <span class="ml-2 hide-menu">All</span>
                                     </Link>
@@ -53,22 +53,19 @@
                             </ul>
                         </li>
                         <!-- <li class="nav-item" v-if="can('read_vendor')"> -->
-                            <Link :class="{ 'active': $page.url.startsWith('/vendors') }" class="nav-link active-preloader"
-                                :href="route('vendors.index')">
+                            <Link :class="{ 'active': $page.url.startsWith('/vendors') }" class="nav-link active-preloader">
                             <font-awesome-icon icon="fa-solid fa-building-user" />
                             <span class="ml-2 nav-link-text font-weight-400">Vendor</span>
                             </Link>
                         <!-- </li> -->
                         <!-- <li class="nav-item" v-if="can('read_grns')"> -->
-                            <Link :class="{ 'active': $page.url.startsWith('/grn') }" class="nav-link active-preloader"
-                                :href="route('grn.index')">
+                            <Link :class="{ 'active': $page.url.startsWith('/grn') }" class="nav-link active-preloader">
                             <font-awesome-icon icon="fa-solid fa-people-carry-box" />
                             <span class="ml-2 nav-link-text font-weight-400">GRN</span>
                             </Link>
                             <!-- </li> -->
                          <li class="nav-item">
-                            <Link :class="{ 'active': $page.url.startsWith('/grn') }" class="nav-link active-preloader"
-                                :href="route('customers.index')">
+                            <Link :class="{ 'active': $page.url.startsWith('/grn') }" class="nav-link active-preloader">
                               <font-awesome-icon icon="fa-solid fa-users" />
                             <span class="ml-2 nav-link-text font-weight-400">customer </span>
                             </Link>
@@ -79,59 +76,59 @@
                             </a>
                             <ul :class="{ 'collapse': $page.url.startsWith('/materialRequestNote') || $page.url.startsWith('/report') ||  $page.url.startsWith('/vendors') || $page.url.startsWith('/gi') || $page.url.startsWith('/invoice') ||$page.url.startsWith('/custom-order')|| $page.url.startsWith('/gt') || $page.url.startsWith('/bom') || $page.url.startsWith('/materials') || $page.url.startsWith('/mr') || $page.url.startsWith('/grn') || $page.url.startsWith('/pr') || route().current() == 'dashboard' || $page.url.startsWith('/shipment-orders')||$page.url.startsWith('/customer') || $page.url.startsWith('/crm') || $page.url.startsWith('/barcode-print') || $page.url.startsWith('/po') || $page.url.startsWith('/audit') || $page.url.startsWith('/stock') }"
                                 class=" list-unstyled" id="settingsMenu">
-                                <li class="nav-item" v-if="can('read_types')">
+                                <li class="nav-item">
                                     <Link :class="{ 'active': $page.url.startsWith('/material-type') }"
-                                        class="nav-link active-preloader" :href="route('materialType.index')">
+                                        class="nav-link active-preloader">
                                     <font-awesome-icon icon="fa-solid fa-layer-group " class="ml-4" /><span
                                         class="ml-2 hide-menu">Material Types</span>
                                     </Link>
                                 </li>
-                                <li class="nav-item" v-if="can('read_categories')">
+                                <li class="nav-item">
                                     <Link :class="{ 'active': $page.url.startsWith('/material-category') }"
-                                        class="nav-link active-preloader" :href="route('materialCategory.index')">
+                                        class="nav-link active-preloader">
                                     <font-awesome-icon icon="fa-solid fa-folder " class="ml-4" /><span
                                         class="ml-2 hide-menu">Material Categories</span>
                                     </Link>
                                 </li>
-                                <li class="nav-item" v-if="can('read_unit_measurements')">
+                                <li class="nav-item">
                                     <Link :class="{ 'active': $page.url.startsWith('/units') }"
-                                        class="nav-link active-preloader" :href="route('units.index')">
+                                        class="nav-link active-preloader">
                                     <font-awesome-icon icon="fa-solid fa-infinity" class="ml-4" /><span
                                         class="ml-2 hide-menu">Unit Of Measurements</span>
                                     </Link>
                                 </li>
-                                <li class="nav-item" v-if="can('read_countries')">
+                                <li class="nav-item">
                                     <Link :class="{ 'active': $page.url.startsWith('/country') }"
-                                        class="nav-link active-preloader" :href="route('country.index')">
+                                        class="nav-link active-preloader">
                                     <font-awesome-icon icon="fa-solid fa-globe" class="ml-4" /><span class="ml-2 hide-menu">
                                         Country</span>
                                     </Link>
                                 </li>
-                                <li class="nav-item" v-if="can('read_currencies')">
+                                <li class="nav-item">
                                     <Link :class="{ 'active': $page.url.startsWith('/currency') }"
-                                        class="nav-link active-preloader" :href="route('currency.index')">
+                                        class="nav-link active-preloader">
                                     <font-awesome-icon icon="fa-solid fa-money-bill-transfer" class="ml-4" /><span
                                         class="ml-2 hide-menu">
                                         Currency</span>
                                     </Link>
                                 </li>
-                                <li class="nav-item" v-if="can('read_unit_conversions')">
+                                <li class="nav-item">
                                     <Link :class="{ 'active': $page.url.startsWith('/unit-conversion') }"
-                                        class="nav-link active-preloader" :href="route('conversion.index')">
+                                        class="nav-link active-preloader">
                                     <font-awesome-icon icon="fa-solid fa-dice" class="ml-4" /><span class="ml-2 hide-menu">
                                         Unit Conversion</span>
                                     </Link>
                                 </li>
-                                <li class="nav-item" v-if="can('read_tax')">
+                                <li class="nav-item">
                                     <Link :class="{ 'active': $page.url.startsWith('/tax') }"
-                                        class="nav-link active-preloader" :href="route('tax.index')">
+                                        class="nav-link active-preloader">
                                     <font-awesome-icon icon="fa-solid fa-coins" class="ml-4" /><span class="ml-2 hide-menu">
                                         Tax</span>
                                     </Link>
                                 </li>
-                                <li class="nav-item" v-if="can('read_warehouses')">
+                                <li class="nav-item">
                                     <Link :class="{ 'active': $page.url.startsWith('/warehouses') }"
-                                        class="nav-link active-preloader" :href="route('users.index')">
+                                        class="nav-link active-preloader">
                                     <font-awesome-icon icon="fa-solid fa-warehouse" class="ml-4" /><span
                                         class="ml-2 hide-menu">
                                         User Management</span>
@@ -201,11 +198,11 @@ export default {
         library.add(faCoins)
         library.add(faPeopleCarryBox)
 
-        this.getMaterialTypes();
+        //this.getMaterialTypes();
 
-        if(!window.Laravel){
-            window.location.reload();
-        }
+        // if(!window.Laravel){
+        //     window.location.reload();
+        // }
     },
     methods: {
         isActive(route, path) {
@@ -213,10 +210,10 @@ export default {
                 return path.includes(route);
             }
         },
-        async getMaterialTypes() {
-            const materialTypes = (await axios.get(route("materialType.all"))).data;
-            this.materialTypes = materialTypes.data;
-        },
+        // async getMaterialTypes() {
+        //     const materialTypes = (await axios.get(route("materialType.all"))).data;
+        //     this.materialTypes = materialTypes.data;
+        // },
     },
 }
 
