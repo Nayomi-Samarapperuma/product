@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 
-class ProductController extends Controller
+class ProductController extends ParentController
 {
     public function index()
     {

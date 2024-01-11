@@ -24,10 +24,9 @@
                             aria-expanded="false">
                             <div class="media align-items-center">
                                 <i class="fa fa-user me-sm-1 text-white"></i>
-                                <div class="media-body  ml-2  d-none d-lg-block">
-                                    <span class="mb-0 text-sm font-weight-bold text-white">{{ $page.props.auth.user.name
-                                    }}</span>
-                                </div>
+                                <!-- <div class="media-body  ml-2  d-none d-lg-block">
+                                    <span class="mb-0 text-sm font-weight-bold text-white">{{ $page.props.auth.user.name}}</span>
+                                </div> -->
                             </div>
                         </a>
                         <div class="dropdown-menu  dropdown-menu-right">

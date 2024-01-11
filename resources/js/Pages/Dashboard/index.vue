@@ -1,6 +1,6 @@
 <template>
     <AppLayout title="iMake Dashboard">
-        <!-- <template #header>
+        <template #header>
             <div class="pb-6 header">
                 <div class="container-fluid">
                     <div class="header-body">
@@ -122,7 +122,7 @@
                     </div>
                 </div>
             </div>
-        </template> -->
+        </template>
     <h1> Home </h1>
     </AppLayout>
 </template>
@@ -150,9 +150,9 @@ export default {
     beforeMount() {
         library.add(faHouse);
 
-        // if(!window.Laravel){
-        //     window.location.reload();
-        // }
+        /* if(!window.Laravel){
+            window.location.reload();
+         }*/
     },
 }
 </script>
