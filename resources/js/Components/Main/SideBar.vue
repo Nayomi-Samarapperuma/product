@@ -21,51 +21,51 @@
                             </Link>
                         </li>
 
-                        <li class="nav-item" >
-                            <a class="nav-link" href="#materialMenu" data-toggle="collapse" aria-expanded="true">
-                                <font-awesome-icon icon="fa-solid fa-folder-open" /><span class="ml-2">Material</span>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#productMenu" data-toggle="collapse" aria-expanded="true">
+                                <font-awesome-icon icon="fa-solid fa-folder-open" /><span class="ml-2">Product</span>
                             </a>
-                            <ul :class="{ 'collapse': $page.url.startsWith('/materialCategory') || $page.url.startsWith('/units') || $page.url.startsWith('/warehouses') || $page.url.startsWith('/currency') || $page.url.startsWith('/country') || $page.url.startsWith('/measurement') || $page.url.startsWith('/material-category') || $page.url.startsWith('/material-type') || $page.url.startsWith('/vendors') || route().current() == 'dashboard' || $page.url.startsWith('/unit-conversion') || $page.url.startsWith('/tax') || $page.url.startsWith('/users') || $page.url.startsWith('/grn') }"
-                                class=" list-unstyled" id="materialMenu">
+                            <ul :class="{ 'collapse': $page.url.startsWith('/productCategory') || $page.url.startsWith('/units') || $page.url.startsWith('/warehouses') || $page.url.startsWith('/currency') || $page.url.startsWith('/country') || $page.url.startsWith('/measurement') || $page.url.startsWith('/product-category') || $page.url.startsWith('/product-type') || $page.url.startsWith('/vendors') || route().current() == 'dashboard' || $page.url.startsWith('/unit-conversion') || $page.url.startsWith('/tax') || $page.url.startsWith('/users') || $page.url.startsWith('/grn') }"
+                                class=" list-unstyled" id="productMenu">
                                 <li class="nav-item">
-                                    <Link :class="{ 'active': $page.url.startsWith('/materials') }"
-                                        class="nav-link active-preloader">
+                                    <Link :class="{ 'active': $page.url.startsWith('/products') }"
+                                        class="nav-link active-preloader" :href="route('product.index')">
                                     <font-awesome-icon icon="fa-solid fa-folder " class="ml-4" />
                                     <span class="ml-2 hide-menu">All</span>
                                     </Link>
                                 </li>
-                                <li v-for="materialType in materialTypes" :key="materialType.id" class="nav-item">
-                                    <Link :class="{ 'active': $page.url.startsWith('/materials') }"
+                                <li v-for="productType in productTypes" :key="productType.id" class="nav-item">
+                                    <Link :class="{ 'active': $page.url.startsWith('/products') }"
                                         class="nav-link active-preloader"
-                                        :href="route('material.slug.index', materialType.slug)">
+                                        :href="route('product.slug.index', productType.slug)">
                                     <font-awesome-icon icon="fa-solid fa-folder " class="ml-4" />
-                                    <span class="ml-2 hide-menu">{{ materialType.name }}</span>
+                                    <span class="ml-2 hide-menu">{{ productType.name }}</span>
                                     </Link>
                                 </li>
-                                <!-- <li v-for="materialType in materialTypes" :key="materialType.id" class="nav-item">
-                                    <Link :class="{ 'active': $page.url.startsWith('/materials') }"
+                                <!-- <li v-for="productType in productTypes" :key="productType.id" class="nav-item">
+                                    <Link :class="{ 'active': $page.url.startsWith('/products') }"
                                         class="nav-link active-preloader"
-                                        :href="route('material.slug.index', materialType.slug)">
+                                        :href="route('product.slug.index', productType.slug)">
                                     <font-awesome-icon icon="fa-solid fa-folder " class="ml-4" />
-                                    <span class="ml-2 hide-menu">{{ materialType.name }}</span>
+                                    <span class="ml-2 hide-menu">{{ productType.name }}</span>
                                     </Link>
                                 </li> -->
                             </ul>
                         </li>
-                        <!-- <li class="nav-item" v-if="can('read_vendor')"> -->
-                            <Link :class="{ 'active': $page.url.startsWith('/vendors') }" class="nav-link active-preloader">
+                        <li class="nav-item">
+                             <Link :class="{ 'active': $page.url.startsWith('/vendors') }" class="nav-link active-preloader">
                             <font-awesome-icon icon="fa-solid fa-building-user" />
                             <span class="ml-2 nav-link-text font-weight-400">Vendor</span>
-                            </Link>
-                        <!-- </li> -->
-                        <!-- <li class="nav-item" v-if="can('read_grns')"> -->
-                            <Link :class="{ 'active': $page.url.startsWith('/grn') }" class="nav-link active-preloader">
+                            </Link> 
+                         </li>
+                         <li class="nav-item">
+                             <Link :class="{ 'active': $page.url.startsWith('/grn') }" class="nav-link active-preloader">
                             <font-awesome-icon icon="fa-solid fa-people-carry-box" />
                             <span class="ml-2 nav-link-text font-weight-400">GRN</span>
                             </Link>
-                            <!-- </li> -->
-                         <li class="nav-item">
-                            <Link :class="{ 'active': $page.url.startsWith('/grn') }" class="nav-link active-preloader">
+                             </li>
+                          <li class="nav-item">
+                             <Link :class="{ 'active': $page.url.startsWith('/grn') }" class="nav-link active-preloader">
                               <font-awesome-icon icon="fa-solid fa-users" />
                             <span class="ml-2 nav-link-text font-weight-400">customer </span>
                             </Link>
@@ -74,20 +74,20 @@
                             <a class="nav-link" href="#settingsMenu" data-toggle="collapse" aria-expanded="true">
                                 <font-awesome-icon icon="fa-solid fa-gear" /><span class="ml-2">Settings</span>
                             </a>
-                            <ul :class="{ 'collapse': $page.url.startsWith('/materialRequestNote') || $page.url.startsWith('/report') ||  $page.url.startsWith('/vendors') || $page.url.startsWith('/gi') || $page.url.startsWith('/invoice') ||$page.url.startsWith('/custom-order')|| $page.url.startsWith('/gt') || $page.url.startsWith('/bom') || $page.url.startsWith('/materials') || $page.url.startsWith('/mr') || $page.url.startsWith('/grn') || $page.url.startsWith('/pr') || route().current() == 'dashboard' || $page.url.startsWith('/shipment-orders')||$page.url.startsWith('/customer') || $page.url.startsWith('/crm') || $page.url.startsWith('/barcode-print') || $page.url.startsWith('/po') || $page.url.startsWith('/audit') || $page.url.startsWith('/stock') }"
+                            <ul :class="{ 'collapse': $page.url.startsWith('/productRequestNote') || $page.url.startsWith('/report') ||  $page.url.startsWith('/vendors') || $page.url.startsWith('/gi') || $page.url.startsWith('/invoice') ||$page.url.startsWith('/custom-order')|| $page.url.startsWith('/gt') || $page.url.startsWith('/bom') || $page.url.startsWith('/products') || $page.url.startsWith('/mr') || $page.url.startsWith('/grn') || $page.url.startsWith('/pr') || route().current() == 'dashboard' || $page.url.startsWith('/shipment-orders')||$page.url.startsWith('/customer') || $page.url.startsWith('/crm') || $page.url.startsWith('/barcode-print') || $page.url.startsWith('/po') || $page.url.startsWith('/audit') || $page.url.startsWith('/stock') }"
                                 class=" list-unstyled" id="settingsMenu">
                                 <li class="nav-item">
-                                    <Link :class="{ 'active': $page.url.startsWith('/material-type') }"
+                                    <Link :class="{ 'active': $page.url.startsWith('/product-type') }"
                                         class="nav-link active-preloader">
                                     <font-awesome-icon icon="fa-solid fa-layer-group " class="ml-4" /><span
-                                        class="ml-2 hide-menu">Material Types</span>
+                                        class="ml-2 hide-menu">Product Types</span>
                                     </Link>
                                 </li>
                                 <li class="nav-item">
-                                    <Link :class="{ 'active': $page.url.startsWith('/material-category') }"
+                                    <Link :class="{ 'active': $page.url.startsWith('/product-category') }"
                                         class="nav-link active-preloader">
                                     <font-awesome-icon icon="fa-solid fa-folder " class="ml-4" /><span
-                                        class="ml-2 hide-menu">Material Categories</span>
+                                        class="ml-2 hide-menu">Product Categories</span>
                                     </Link>
                                 </li>
                                 <li class="nav-item">
@@ -162,7 +162,7 @@ export default {
     },
     data() {
         return {
-            materialTypes: [],
+            productTypes: [],
         }
     },
     beforeMount() {
@@ -198,7 +198,7 @@ export default {
         library.add(faCoins)
         library.add(faPeopleCarryBox)
 
-        //this.getMaterialTypes();
+        //this.getProductTypes();
 
         // if(!window.Laravel){
         //     window.location.reload();
@@ -210,11 +210,11 @@ export default {
                 return path.includes(route);
             }
         },
-        // async getMaterialTypes() {
-        //     const materialTypes = (await axios.get(route("materialType.all"))).data;
-        //     this.materialTypes = materialTypes.data;
-        // },
-    },
+        // async getProductTypes() {
+        //     const productTypes = (await axios.get(route("productType.all"))).data;
+        //     this.productTypes = productTypes.data;
+        // }
+    }
 }
 
 </script>

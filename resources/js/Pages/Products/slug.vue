@@ -5,10 +5,8 @@
                 <div class="container-fluid">
                     <div class="header-body row">
                         <div class="col-lg-8 align-items-center py-4">
-                            <h6 class="h2 text-dark d-inline-block mb-0">
-                                Product Management
-                            </h6>
-                            <nav aria-label="breadcrumb" class="d-none d-md-block">
+                            <h6 class="h2 text-dark d-inline-block mb-0">Product Management</h6>
+                            <nav aria-label="breadcrumb" class="d-none d-md-block ">
                                 <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                                     <li class="breadcrumb-item">
                                         <Link href="/">
@@ -21,11 +19,10 @@
                                 </ol>
                             </nav>
                         </div>
-                        <div class="col-lg-4 text-right pt-5" v-if="can('create_products')">
-                            <a href="javascript:void(0)" data-toggle="modal" data-target="#newProductModal"
-                                class="btn btn-sm btn-outline--info ml-auto">
-                                <font-awesome-icon icon="fa-solid fa-circle-plus" />
-                                ADD NEW
+                        <div class="col-lg-4 text-right py-4" v-if="can('create_products')">
+                            <a href="javascript:void(0)" @click.prevent="newProduct"
+                            class="btn btn-sm btn-neutral float-end">
+                                <font-awesome-icon icon="fa-solid fa-circle-plus" /> ADD NEW
                             </a>
                         </div>
                     </div>
@@ -56,7 +53,7 @@
                                     PRODUCT NAME
                                 </div>
                                 <input type="text" class="form-control form-control-sm" name="name" id="name"
-                                    v-model="search_product.name" placeholder="Product Name" @keyup="getSearch" />
+                                    v-model="search_product.name" placeholder="product Name" @keyup="getSearch" />
                             </div>
                             <div class="col-md-3 column__left___padding">
                                 <div for="purchase_uom" class="col-form-label">
@@ -75,7 +72,7 @@
 
                             <div class="text-muted ml-auto mx-4 mt-4">
                                 <div class="inline-block">
-                                    <select class="form-control form-control-sm per-page-entry mx-1 mt-2" :value="100"
+                                    <select class="form-control form-control-sm per-page-entry mt-2 " :value="100"
                                         v-model="pageCount" @change="perPageChange">
                                         <option v-for="perPageCount in perPage" :key="perPageCount" :value="perPageCount"
                                             v-text="perPageCount" />
@@ -107,7 +104,7 @@
                                         <div class="p-2 border icon_item" v-if="can('active_products')">
                                             <a @click.prevent="
                                                 activeSelectedItems(
-                                                    checkProdrialTypeItems
+                                                    checkMatirialTypeItems
                                                 )
                                                 ">
                                                 <font-awesome-icon class="icon_item-icon" icon="fa-solid fa-circle-check"
@@ -117,17 +114,17 @@
                                         <div class="p-2 border icon_item" v-if="can('inactive_products')">
                                             <a @click.prevent="
                                                 inactiveSelectedItems(
-                                                    checkProductTypeItems
+                                                    checkMatirialTypeItems
                                                 )
                                                 ">
                                                 <font-awesome-icon class="icon_item-icon" icon="fa-solid fa-circle-minus"
                                                     color="#eb0505" />
                                             </a>
                                         </div>
-                                        <div class="p-2 border icon_item" v-if="this.checkProdItems.length > 0 && can('create_products')">
+                                        <div class="p-2 border icon_item" v-if="this.checkMatiItems.length > 0 && can('create_products')">
                                             <a href="javascript:void(0)" @click.prevent="
                                                 deleteSelectedItems(
-                                                    checkProdItems
+                                                    checkMatiItems
                                                 )
                                                 ">
                                                 <font-awesome-icon class="icon_item-icon" icon="fa-solid fa-trash"
@@ -140,7 +137,7 @@
                                             <font-awesome-icon class="icon_item-icon" icon="fa-solid fa-print"
                                                 color="#505050" />
                                         </div>
-                                        <!-- <a href="javascript:void(0)" data-toggle="modal" data-target="#newproductModal">
+                                        <!-- <a href="javascript:void(0)" data-toggle="modal" data-target="#newProductModal">
                                             <div class="p-2 border icon_item">
                                                 <font-awesome-icon class="icon_item-icon" icon="fa-solid fa-square-plus"
                                                     color="#306ed9" />
@@ -155,34 +152,20 @@
                                             <th>
                                                 <div class="form-check mb-4">
                                                     <input class="form-check-input" type="checkbox" @click="selectAll"
-                                                    v-if="this.products.length > 0" :checked="this.checkAllItems.length==this.checkProdItems.length>0"  v-model="checkAllItems" />
+                                                    v-if="this.products.length > 0"  :checked="this.checkMatiItems.length>0" v-model="checkAllItems" />
                                                 </div>
                                             </th>
-                                            <th :class="iconClassHead" class="pl-0">
-                                                STATUS
-                                            </th>
+                                            <th :class="iconClassHead" class="pl-0">STATUS</th>
                                             <th :class="textClassHead">Code</th>
                                             <th :class="textClassHead">Name</th>
-                                            <th :class="textClassHead">
-                                                Barcode
-                                            </th>
-                                            <th :class="valueClassHead" class="text_align_end">
-                                                Cost
-                                            </th>
-                                            <th :class="valueClassHead" class="text_align_end">
-                                                Selling Price
-                                            </th>
-                                            <th :class="textClassHead">
-                                                Purchase UOP
-                                            </th>
-                                            <th :class="textClassHead">
-                                                Stock UOP
-                                            </th>
+                                            <th :class="textClassHead">Barcode</th>
+                                            <th :class="valueClassHead" class="text_align_end">Cost</th>
+                                            <th :class="valueClassHead" class="text_align_end">Selling Price</th>
+                                            <th :class="textClassHead">Purchase UOP</th>
+                                            <th :class="textClassHead">Stock UOP</th>
                                             <th :class="textClassHead">Size</th>
+                                            <th :class="textClassHead">Category</th>
                                             <th :class="textClassHead">Type</th>
-                                            <th :class="textClassHead">
-                                                Category
-                                            </th>
                                             <th></th>
                                         </tr>
                                     </thead>
@@ -190,7 +173,7 @@
                                         <tr v-for="product in products" :key="product.id" :class="rowClass">
                                             <td class="pt-2">
                                                 <div class="form-check mb-4">
-                                                    <input class="form-check-input" type="checkbox" v-model="checkProdItems"
+                                                    <input class="form-check-input" type="checkbox" v-model="checkMatiItems"
                                                         v-bind:value="product" v-bind:id="product.id" />
                                                 </div>
                                             </td>
@@ -225,23 +208,23 @@
                                                 }}
                                             </td>
                                             <td :class="textClassBody" class="pt-2">
-                                                {{ product.purchase_uop_name }}
+                                                {{ product.purchase_uom_name }}
                                             </td>
                                             <td :class="textClassBody" class="pt-2">
-                                                {{ product.stock_uop_name }}
+                                                {{ product.stock_uom_name }}
                                             </td>
                                             <td :class="textClassBody" class="pt-2">
                                                 {{ product.size }}
                                             </td>
                                             <td :class="textClassBody" class="pt-2">
-                                                {{ product.type_name }}
+                                                {{ product.category_name }}
                                             </td>
                                             <td :class="textClassBody" class="pt-2">
-                                                {{ product.category_name }}
+                                                {{ product.type_name }}
                                             </td>
 
                                             <td :class="textClassBody">
-                                                <a v-if="can('update_products')" href="javascript:void(0)" @click.prevent="
+                                                <a href="javascript:void(0)" @click.prevent="
                                                     editProducts(
                                                         product.id
                                                     )
@@ -265,56 +248,29 @@
                                 </div>
                             </div>
                             <div class="col-sm-12 col-md-6 p-0">
-                                <div class="dataTables_paginate paging_simple_numbers column__right___padding"
+                                <div class="dataTables_paginate paging_simple_numbers  column__right___padding"
                                     id="DataTables_Table_0_paginate">
                                     <nav aria-label="Page navigation" style="float: right">
                                         <ul class="pagination">
-                                            <li class="page-item" :class="pagination.current_page == 1
-                                                    ? 'disabled'
-                                                    : ''
-                                                ">
-                                                <a class="page-link" href="javascript:void(0)" @click="
-                                                    setPage(
-                                                        pagination.current_page -
-                                                        1
-                                                    )
-                                                    ">
+                                            <li class="page-item" :class="pagination.current_page == 1 ? 'disabled' : ''">
+                                                <a class="page-link" href="javascript:void(0)"
+                                                    @click="setPage(pagination.current_page - 1)">
                                                     <i class="fa-solid fa-angles-left"></i>
                                                 </a>
                                             </li>
-                                            <template v-for="(
-                                                    page, index
-                                                ) in pagination.last_page">
-                                                <template v-if="page == 1 ||
-                                                    page ==
-                                                    pagination.last_page ||
-                                                    Math.abs(
-                                                        page -
-                                                        pagination.current_page
-                                                    ) < 5
-                                                    ">
-                                                    <li class="page-item page-item-purple" :key="index" :class="pagination.current_page ==
-                                                            page
-                                                            ? 'active'
-                                                            : ''
-                                                        ">
-                                                        <a class="page-link" @click="
-                                                            setPage(page)
-                                                            ">{{ page }}</a>
+                                            <template v-for="(page, index) in pagination.last_page">
+                                                <template
+                                                    v-if="page == 1 || page == pagination.last_page || Math.abs(page - pagination.current_page) < 5">
+                                                    <li class="page-item " :key="index"
+                                                        :class="pagination.current_page == page ? 'active' : ''">
+                                                        <a class="page-link" @click="setPage(page)">{{ page }}</a>
                                                     </li>
                                                 </template>
                                             </template>
-                                            <li class="page-item" :class="pagination.current_page ==
-                                                    pagination.last_page
-                                                    ? 'disabled'
-                                                    : ''
-                                                ">
-                                                <a class="page-link" href="javascript:void(0)" @click="
-                                                    setPage(
-                                                        pagination.current_page +
-                                                        1
-                                                    )
-                                                    ">
+                                            <li class="page-item"
+                                                :class="pagination.current_page == pagination.last_page ? 'disabled' : ''">
+                                                <a class="page-link" href="javascript:void(0)"
+                                                    @click="setPage(pagination.current_page + 1)">
                                                     <i class="fa-solid fa-angles-right"></i>
                                                 </a>
                                             </li>
@@ -329,7 +285,7 @@
         </template>
         <template #modals>
             <div class="modal fade" id="newProductModal" data-backdrop="static" tabindex="-1" role="dialog"
-                aria-labelledby="newrPoductModal" aria-hidden="true">
+                aria-labelledby="newProductModal" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -480,8 +436,8 @@
                                             <div class="col-md-10">
                                                 <Multiselect v-model="this
                                                             .select_category_level_1
-                                                        " :options="categories" :showLabels="false" :close-on-select="true"
-                                                    :clear-on-select="false" :searchable="true"
+                                                        " :options="categories" :showLabels="false"
+                                                    :close-on-select="true" :clear-on-select="false" :searchable="true"
                                                     placeholder="Select Category" label="name" track-by="id" />
                                                 <small v-if="validationErrors.category
                                                     " class="mt-1 text-sm text-danger form-text text-error-msg error">
@@ -510,11 +466,12 @@
 </template>
 
 <script>
-import AppLayout from "@/Layouts/AppLayout.vue";
-import { Link } from "@inertiajs/vue3";
-import Multiselect from "vue-multiselect";
-
-import { library } from "@fortawesome/fontawesome-svg-core";
+import AppLayout from '@/Layouts/AppLayout.vue';
+import { Link } from '@inertiajs/vue3';
+import Multiselect from 'vue-multiselect';
+import { computed } from 'vue';
+import { usePage } from '@inertiajs/vue3';
+import { library } from '@fortawesome/fontawesome-svg-core';
 import {
     faHouse,
     faFloppyDisk,
@@ -532,8 +489,6 @@ import {
     faPenToSquare,
     faPen,
 } from "@fortawesome/free-solid-svg-icons";
-import Swal from "sweetalert2";
-import axios from "axios";
 
 export default {
     components: {
@@ -542,26 +497,28 @@ export default {
         library,
         Multiselect,
     },
-
+    props: {
+        slug: Object,
+    },
     data() {
         return {
             textClassHead: "text-start text-uppercase",
             textClassBody: "text-start",
-            valueClassBody: "text-end",
-            valueClassHead: "text-end",
+            valueClassBody: "text-right",
+            valueClassHead: "text-right",
             iconClassHead: "text-center",
             iconClassBody: "text-center",
             rowClass: "cursor-pointer",
 
             search: null,
             page: 1,
-            perPage: [100, 250, 500],
-            pageCount: 100,
+            perPage: [25, 50, 100],
+            pageCount: 25,
             pagination: {},
 
             product: {},
-            select_purchase_uop: null,
-            select_stock_uop: null,
+            select_purchase_uom: null,
+            select_stock_uom: null,
             units: [],
             select_type: null,
             categories: [],
@@ -582,11 +539,10 @@ export default {
             vendors: [],
 
             products: [],
-            checkProdItems: [],
+            checkMatiItems: [],
             checkAllItems: false,
         };
     },
-
     beforeMount() {
         library.add(faHouse);
         library.add(faFloppyDisk);
@@ -603,48 +559,45 @@ export default {
         library.add(faXmark);
         library.add(faPenToSquare);
         library.add(faPen);
-
         //this.getProductTypes();
         this.getCategoriesLevel1();
-        this.getUOMs();
+        this.getUOPs();
         this.getProducts();
         this.getCategories();
     },
     watch: {
+
         checkAllItems(value) {
             this.products.forEach((item, index) => {
                 if (index !== 0) {
                     item.selected = value;
                 }
             });
-            if (this.checkProdItems.length == this.products.length) {
-                this.checkProdItems = [];
+            if (this.checkMatiItems.length == this.products.length) {
+                this.checkMatiItems = [];
             } else {
-                this.checkProdItems = this.products;
+                this.checkMatiItems = this.products;
             }
         },
-        checkProdItems(value) {
-            if (this.checkProdItems.length !== this.products.length) {
+        checkMatiItems(value) {
+            if (this.checkMatiItems.length != this.products.length) {
                 this.checkAllItems = false;
             }
         },
 
-        // select_category_level_1: function (val) {
-        //     val ? this.getCategoriesLevel2(val) : "";
-        // },
-        // select_category_level_2: function (val) {
-        //     val ? this.getCategoriesLevel3(val) : "";
-        // },
-        // select_category_level_3: function (val) {
-        //     val ? this.getCategoriesLevel4(val) : "";
-        // },
-        select_search_category: function () {
-            this.select_search_category
-                ? (this.search_product.category =
-                    this.select_search_category.id)
-                : (this.search_product.category = null);
-            this.getSearch();
+        select_category_level_1: function (val) {
+            val ? this.getCategoriesLevel2(val) : '';
         },
+        select_category_level_2: function (val) {
+            val ? this.getCategoriesLevel3(val) : '';
+        },
+        select_category_level_3: function (val) {
+            val ? this.getCategoriesLevel4(val) : '';
+        },
+        select_search_category: function () {
+            this.select_search_category ? this.search_product.category = this.select_search_category.id : this.search_product.category = null;
+            this.getSearch();
+        }
     },
     methods: {
         // onSearchVendor(search, loading) {
@@ -663,86 +616,11 @@ export default {
         //         vm.vendors = res.data.data;
         //         loading = false;
         //     });
-        // }),
+        // }, 250),
 
         formatPrice(value) {
             let val = (value / 1).toFixed(2).replace(",", ".");
             return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        },
-
-        selectAll: function (event) {
-            if (event.target.checked == false) {
-                this.checkProdItems = [];
-            } else {
-                this.products.forEach((product) => {
-                    this.checkProdItems.push(product.id);
-                });
-            }
-        },
-
-        async deleteSelectedItems(checkProdItems) {
-            this.$root.loader.start();
-            try {
-                Swal.fire({
-                    title: "Are you sure?",
-                    text: "You won't be able to revert this!",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#C00202", // Green
-                    cancelButtonColor: "#6CA925", // Secondary Color
-                    confirmButtonText: "Yes, delete it!",
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        const ids = this.checkProdItems.map(
-                            (product) => product.id
-                        );
-                        axios
-                            .post(route("products.delete.selected"), { ids })
-                            .then((response) => {
-                                this.reload();
-                            });
-                        Swal.fire(
-                            "Deleted!",
-                            `Product has been deleted.`,
-                            "success"
-                        );
-                    }
-                });
-                this.$root.loader.finish();
-            } catch (error) {
-                this.convertValidationNotification(error);
-            }
-        },
-        async activeSelectedItems(checkProdItems) {
-            this.$nextTick(() => {
-                this.$root.loader.start();
-            });
-            const ids = this.checkProdItems.map((product) => product.id);
-            axios
-                .post(route("products.active.selected"), { ids })
-                .then((response) => {
-                    this.checkProdItems = [];
-                    this.reload();
-                });
-            this.$nextTick(() => {
-                this.$root.loader.finish();
-            });
-        },
-
-        async inactiveSelectedItems(checkProdItems) {
-            this.$nextTick(() => {
-                this.$root.loader.start();
-            });
-            const ids = this.checkProdItems.map((product) => product.id);
-            axios
-                .post(route("products.inactive.selected"), { ids })
-                .then((response) => {
-                    this.checkProdItems = [];
-                    this.reload();
-                });
-            this.$nextTick(() => {
-                this.$root.loader.finish();
-            });
         },
 
         async setPage(page) {
@@ -750,6 +628,7 @@ export default {
             this.reload();
         },
         async getSearch() {
+            this.page = 1;
             this.reload();
         },
         async perPageChange() {
@@ -775,42 +654,40 @@ export default {
             this.pagination = tableData.meta;
             this.$root.loader.finish();
         },
-        async clearFilters() {
-            this.select_search_category = null;
-            this.search_product = {};
-            this.reload();
-        },
 
         async getUOMs() {
             const units = (await axios.get(route("units.all"))).data;
             this.units = units.data;
-            console.log(this.units);
         },
         async getProductTypes() {
-            const productTypes = (await axios.get(route("productType.all")))
-                .data;
+            const productTypes = (await axios.get(route("productType.all"))).data;
             this.productTypes = productTypes.data;
         },
-
-        async getCategoriesLevel1() {
-            const categories = (
-                await axios.get(route("productCategory.level1.all"))
-            ).data;
-            this.categories = categories;
-        },
-
         async getCategories() {
-            const all_cat = (
-                await axios.get(route("productCategory.all.list"))
-            ).data;
+            const all_cat = (await axios.get(route('productCategory.all.list'))).data
             this.all_cat = all_cat;
+        },
+        // async getCategoriesLevel2(id) {
+        //     const categoriesL2 = (await axios.get(route('productCategory.level2.all', id))).data
+        //     this.categoriesL2 = categoriesL2;
+        // },
+        // async getCategoriesLevel3(id) {
+        //     const categoriesL3 = (await axios.get(route('productCategory.level3.all', id))).data
+        //     this.categoriesL3 = categoriesL3;
+        // },
+        // async getCategoriesLevel4(id) {
+        //     const categoriesL4 = (await axios.get(route('productCategory.level4.all', id))).data
+        //     this.categoriesL4 = categoriesL4;
+        //},
+        async getCategoriesLevel1() {
+            const categories = (await axios.get(route('productCategory.level1.all'))).data
+            this.categories = categories;
         },
         async getProducts() {
             this.$nextTick(() => {
                 this.$root.loader.start();
             });
-            const tableData = (await axios.get(route("product.all"))).data;
-            // console.log(tableData)
+            const tableData = (await axios.get(route("product.all.slug", this.slug))).data;
             this.products = tableData.data;
             this.pagination = tableData.meta;
             this.$nextTick(() => {
@@ -820,11 +697,11 @@ export default {
         async createProduct() {
             this.resetValidationErrors();
             try {
-                if (this.select_purchase_uom) {
-                    this.product.purchase_uom = this.select_purchase_uom.id;
+                if (this.select_purchase_uop) {
+                    this.product.purchase_uop = this.select_purchase_uom.id;
                 }
-                if (this.select_stock_uom) {
-                    this.product.stock_uom = this.select_stock_uom.id;
+                if (this.select_stock_uop) {
+                    this.product.stock_uop = this.select_stock_uom.id;
                 }
                 if (this.select_type) {
                     this.product.type = this.select_type.id;
@@ -868,10 +745,89 @@ export default {
         },
         async editProducts(productId) {
             // this.$inertia.visit(route('product.edit', productId));
-            window.location.href = route("product.edit", productId);
+            window.location.href = route('product.edit', productId);
+        },
+        async clearFilters() {
+            console.log("first");
+            this.search_product = {};
+            this.select_search_category = null;
+            this.reload();
+        },
+        async newProduct(){
+            this.$root.loader.start();
+            this.product = {};
+            this.validationErrors = {};
+            $("#newProductModal").modal("show");
+            this.$root.loader.finish();
+        },
+
+
+        async deleteSelectedItems(checkMatiItems) {
+            this.$root.loader.start();
+            try {
+                Swal.fire({
+                    title: "Are you sure?",
+                    text: "You won't be able to revert this!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#C00202", // Green
+                    cancelButtonColor: "#6CA925", // Secondary Color
+                    confirmButtonText: "Yes, delete it!",
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        const ids = this.checkMatiItems.map(
+                            (product) => product.id
+                        );
+                        axios
+                            .post(route("products.delete.selected"), { ids })
+                            .then((response) => {
+                                this.reload();
+                            });
+                        Swal.fire(
+                            "Deleted!",
+                            `Product has been deleted.`,
+                            "success"
+                        );
+                    }
+                });
+                this.$root.loader.finish();
+            } catch (error) {
+                this.convertValidationNotification(error);
+            }
+        },
+        async activeSelectedItems(checkMatiItems) {
+            this.$nextTick(() => {
+                this.$root.loader.start();
+            });
+            const ids = this.checkMatiItems.map((product) => product.id);
+            axios
+                .post(route("products.active.selected"), { ids })
+                .then((response) => {
+                    this.checkMatiItems = [];
+                    this.getProducts();
+                });
+            this.$nextTick(() => {
+                this.$root.loader.finish();
+            });
+        },
+
+        async inactiveSelectedItems(checkMatiItems) {
+            this.$nextTick(() => {
+                this.$root.loader.start();
+            });
+            const ids = this.checkMatiItems.map((product) => product.id);
+            axios
+                .post(route("products.inactive.selected"), { ids })
+                .then((response) => {
+                    this.checkMatiItems = [];
+                    this.getProducts();
+                });
+            this.$nextTick(() => {
+                this.$root.loader.finish();
+            });
         },
     },
-};
+}
 </script>
 
 <style lang="scss" scoped>

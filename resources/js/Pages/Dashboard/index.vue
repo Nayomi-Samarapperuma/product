@@ -33,10 +33,10 @@
                                     <div class="row">
                                         <div class="col-8">
                                             <div class="numbers">
-                                                <p class="mb-0 text-sm text-uppercase font-weight-bold">Total Materials
+                                                <p class="mb-0 text-sm text-uppercase font-weight-bold">Total Products
                                                 </p>
                                                 <h5 class="font-weight-bolder">
-                                                    {{ this.total_materials }}
+                                                    {{ this.total_products }}
                                                 </h5>
                                             </div>
                                         </div>
@@ -142,7 +142,7 @@ export default {
         library,
     },
     props: {
-        total_materials: Number,
+        total_products: Number,
         total_boms: Number,
         total_vendors: Number,
         total_pos: Number,
