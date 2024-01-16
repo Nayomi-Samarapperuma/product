@@ -22,7 +22,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="#productMenu" data-toggle="collapse" aria-expanded="true">
+                            <a class="nav-link" href="#products" data-toggle="collapse" aria-expanded="true">
                                 <font-awesome-icon icon="fa-solid fa-folder-open" /><span class="ml-2">Product</span>
                             </a>
                             <ul :class="{ 'collapse': $page.url.startsWith('/productCategory') || $page.url.startsWith('/units') || $page.url.startsWith('/warehouses') || $page.url.startsWith('/currency') || $page.url.startsWith('/country') || $page.url.startsWith('/measurement') || $page.url.startsWith('/product-category') || $page.url.startsWith('/product-type') || $page.url.startsWith('/vendors') || route().current() == 'dashboard' || $page.url.startsWith('/unit-conversion') || $page.url.startsWith('/tax') || $page.url.startsWith('/users') || $page.url.startsWith('/grn') }"
@@ -34,46 +34,7 @@
                                     <span class="ml-2 hide-menu">All</span>
                                     </Link>
                                 </li>
-                                <li v-for="productType in productTypes" :key="productType.id" class="nav-item">
-                                    <Link :class="{ 'active': $page.url.startsWith('/products') }"
-                                        class="nav-link active-preloader"
-                                        :href="route('product.slug.index', productType.slug)">
-                                    <font-awesome-icon icon="fa-solid fa-folder " class="ml-4" />
-                                    <span class="ml-2 hide-menu">{{ productType.name }}</span>
-                                    </Link>
-                                </li>
-                                <!-- <li v-for="productType in productTypes" :key="productType.id" class="nav-item">
-                                    <Link :class="{ 'active': $page.url.startsWith('/products') }"
-                                        class="nav-link active-preloader"
-                                        :href="route('product.slug.index', productType.slug)">
-                                    <font-awesome-icon icon="fa-solid fa-folder " class="ml-4" />
-                                    <span class="ml-2 hide-menu">{{ productType.name }}</span>
-                                    </Link>
-                                </li> -->
                             </ul>
-                        </li>
-                        <li class="nav-item">
-                             <Link :class="{ 'active': $page.url.startsWith('/vendors') }" class="nav-link active-preloader">
-                            <font-awesome-icon icon="fa-solid fa-building-user" />
-                            <span class="ml-2 nav-link-text font-weight-400">Vendor</span>
-                            </Link> 
-                         </li>
-                         <li class="nav-item">
-                             <Link :class="{ 'active': $page.url.startsWith('/grn') }" class="nav-link active-preloader">
-                            <font-awesome-icon icon="fa-solid fa-people-carry-box" />
-                            <span class="ml-2 nav-link-text font-weight-400">GRN</span>
-                            </Link>
-                             </li>
-                          <li class="nav-item">
-                             <Link :class="{ 'active': $page.url.startsWith('/grn') }" class="nav-link active-preloader">
-                              <font-awesome-icon icon="fa-solid fa-users" />
-                            <span class="ml-2 nav-link-text font-weight-400">customer </span>
-                            </Link>
-                           </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#settingsMenu" data-toggle="collapse" aria-expanded="true">
-                                <font-awesome-icon icon="fa-solid fa-gear" /><span class="ml-2">Settings</span>
-                            </a>
                             <ul :class="{ 'collapse': $page.url.startsWith('/productRequestNote') || $page.url.startsWith('/report') ||  $page.url.startsWith('/vendors') || $page.url.startsWith('/gi') || $page.url.startsWith('/invoice') ||$page.url.startsWith('/custom-order')|| $page.url.startsWith('/gt') || $page.url.startsWith('/bom') || $page.url.startsWith('/products') || $page.url.startsWith('/mr') || $page.url.startsWith('/grn') || $page.url.startsWith('/pr') || route().current() == 'dashboard' || $page.url.startsWith('/shipment-orders')||$page.url.startsWith('/customer') || $page.url.startsWith('/crm') || $page.url.startsWith('/barcode-print') || $page.url.startsWith('/po') || $page.url.startsWith('/audit') || $page.url.startsWith('/stock') }"
                                 class=" list-unstyled" id="settingsMenu">
                                 <li class="nav-item">
@@ -90,52 +51,6 @@
                                         class="ml-2 hide-menu">Product Categories</span>
                                     </Link>
                                 </li>
-                                <li class="nav-item">
-                                    <Link :class="{ 'active': $page.url.startsWith('/units') }"
-                                        class="nav-link active-preloader">
-                                    <font-awesome-icon icon="fa-solid fa-infinity" class="ml-4" /><span
-                                        class="ml-2 hide-menu">Unit Of Measurements</span>
-                                    </Link>
-                                </li>
-                                <li class="nav-item">
-                                    <Link :class="{ 'active': $page.url.startsWith('/country') }"
-                                        class="nav-link active-preloader">
-                                    <font-awesome-icon icon="fa-solid fa-globe" class="ml-4" /><span class="ml-2 hide-menu">
-                                        Country</span>
-                                    </Link>
-                                </li>
-                                <li class="nav-item">
-                                    <Link :class="{ 'active': $page.url.startsWith('/currency') }"
-                                        class="nav-link active-preloader">
-                                    <font-awesome-icon icon="fa-solid fa-money-bill-transfer" class="ml-4" /><span
-                                        class="ml-2 hide-menu">
-                                        Currency</span>
-                                    </Link>
-                                </li>
-                                <li class="nav-item">
-                                    <Link :class="{ 'active': $page.url.startsWith('/unit-conversion') }"
-                                        class="nav-link active-preloader">
-                                    <font-awesome-icon icon="fa-solid fa-dice" class="ml-4" /><span class="ml-2 hide-menu">
-                                        Unit Conversion</span>
-                                    </Link>
-                                </li>
-                                <li class="nav-item">
-                                    <Link :class="{ 'active': $page.url.startsWith('/tax') }"
-                                        class="nav-link active-preloader">
-                                    <font-awesome-icon icon="fa-solid fa-coins" class="ml-4" /><span class="ml-2 hide-menu">
-                                        Tax</span>
-                                    </Link>
-                                </li>
-                                <li class="nav-item">
-                                    <Link :class="{ 'active': $page.url.startsWith('/warehouses') }"
-                                        class="nav-link active-preloader">
-                                    <font-awesome-icon icon="fa-solid fa-warehouse" class="ml-4" /><span
-                                        class="ml-2 hide-menu">
-                                        User Management</span>
-                                    </Link>
-                                </li>
-
-
                             </ul>
                         </li>
 

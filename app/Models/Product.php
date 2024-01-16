@@ -14,30 +14,11 @@ class Product extends Model
 
     protected $fillable = [
         'code',
-        'color',
         'name',
-        'barcode',
         'description',
-        'cost',
-        'selling_price',
-        'purchase_uop',
-        'stock_uop',
-        'type',
-        'image',
-        'size_width',
-        'size_height',
-        'size_length',
-        'gross_weight',
-        'net_weight',
-        'uom_weight',
+        'price',
         'category',
-
-        'size',
-        'category_l1_id',
-        'hs_code',
-        'rol',
     ];
-
     protected $appends = [
         'purchase_uop_name',
         'stock_uop_name',
@@ -45,222 +26,61 @@ class Product extends Model
         'category_name',
     ];
 
-
-
-
     public function consignment()
     {
         return $this->hasOne(ConsignmentItem::class, 'item_id', 'id');
     }
 
-    public function productSize()
+    public function getPurchaseUopNameAttribute()
+     {
+         return $this->purchaseUopData ? $this->purchaseUopData->name : 'N/A';
+     }
+
+    public function getStockUopNameAttribute()
     {
-        return $this->hasOne(ProductSize::class, 'slug', 'size');
-    }
+        return $this->stockUopData ? $this->stockUopData->name : 'N/A';
+     }
 
-    /**
-     * purchase_uom
-     *
-     * @return void
-     */
-    public function purchaseUomData()
-    {
-        return $this->hasOne(UnitOfMeasure::class, 'id', 'purchase_uom');
-    }
-
-    /**
-     * stock_uom
-     *
-     * @return void
-     */
-    public function stockUomData()
-    {
-        return $this->hasOne(UnitOfMeasure::class, 'id', 'stock_uom');
-    }
-
-    /**
-     * type
-     *
-     * @return void
-     */
-    public function typeData()
-    {
-        return $this->hasOne(ProductType::class, 'id', 'type');
-    }
-
-    /**
-     * categoryData
-     *
-     * @return void
-     */
-    public function categoryData()
-    {
-        return $this->hasOne(ProductCategory::class, 'id', 'category');
-    }
-
-    public function getVendorAttribute()
-    {
-        return $this->consignment ? $this->consignment->vendor : 'N/A';
-    }
-
-    public function getVendorIdAttribute()
-    {
-        return $this->consignment ? $this->consignment->vendor_id : 'N/A';
-    }
-
-    public function getPercentageAttribute()
-    {
-        return $this->consignment ? $this->consignment->percentage : 'N/A';
-    }
-
-    /**
-     * getPurchaseUomNameAttribute
-     *
-     * @return void
-     */
-    public function getPurchaseUomNameAttribute()
-    {
-        return $this->purchaseUomData ? $this->purchaseUomData->name : 'N/A';
-    }
-
-    /**
-     * getStockUomNameAttribute
-     *
-     * @return void
-     */
-    public function getStockUomNameAttribute()
-    {
-        return $this->stockUomData ? $this->stockUomData->name : 'N/A';
-    }
-
-    /**
-     * getTypeNameAttribute
-     *
-     * @return void
-     */
-    public function getTypeNameAttribute()
-    {
-        return $this->typeData ? $this->typeData->name : 'N/A';
-    }
-
-    /**
-     * getCategoryNameAttribute
-     *
-     * @return void
-     */
-    public function getCategoryNameAttribute()
-    {
-        return $this->categoryData ? $this->categoryData->full_name : 'N/A';
-    }
-
-    public function getSizeNameAttribute()
-    {
-        return $this->productSize ? $this->productSize->name : 'N/A';
-    }
-
-    public function images()
-    {
-        return $this->hasOne(Image::class, 'id', 'image');
-    }
-
-    public function getImageUrlAttribute()
-    {
-        return $this->images ? $this->images->name : 'N/A';
-    }
-
-    /**
-     * getFormateCostAttribute
-     *
-     * @return void
-     */
-    public function getFormateCostAttribute()
-    {
-        $cost = $this->cost;
-        return number_format($cost, 3);
-    }
-
-    public function getFormateSellingPriceAttribute()
-    {
-        $selling_price = $this->selling_price;
-        return number_format($selling_price, 3);
-    }
-
-    public function getNameWithDescriptionAttribute()
-    {
-        return $this->name . ' - ' . $this->description;
-    }
-
-    public function productCosting()
-    {
-        return $this->hasMany(ProductCosting::class, 'product_id', 'id');
-    }
-
-    public function getproductForBom()
-    {
-        return $this->whereHas('typeData', function ($query) {
-            $query->where('type', 'finish-good')->orWhere('type', 'semi-finish-good');
-        })->get();
-    }
-
-    public function getFinishGood()
-    {
-        return $this->whereHas('typeData', function ($query) {
-            $query->where('type', 'finish-good');
-        })->get();
-    }
-
-    public function stockAvailable()
-    {
-        return $this->hasMany(Stock::class, 'product_id', 'id')->where('qty', '>', 0);
-    }
-
-    public function getStockQtyAttribute()
-    {
-        return $this->hasMany(Stock::class, 'product_id', 'id')->sum('qty');
-    }
-
-    public function getProductForMr()
-    {
-        return $this->whereHas('stockAvailable', function (Builder $query) {
-            $query->whereHas('bin', function (Builder $query) {
-                $query->where('stock_remove', 1)->orWhere('stock_putaway', 1);
-            });
-        })->get();
-    }
-
-    public function stockProducts()
-    {
-        return $this->hasMany(Stock::class, 'product_id', 'id');
-    }
-
-    public function getProductForStock()
-    {
-        return $this->whereHas('stockProducts', function (Builder $query) {
-            // $query->where('qty', '>', 0);
-        })->get();
-        // return $this->whereHas('stockProducts')->get();
-    }
-
-    public function getProductForGi()
-    {
-        return $this->whereHas('stockProducts', function (Builder $query) {
-            // $query->where('status', 1);
-        })->get();
-        // return $this->whereHas('stockProducts')->get();
-    }
-
-    // public function getProductForGT($warehouse_id)
-    // {
-    //     return $this->whereHas('stockProducts', function (Builder $query) use($warehouse_id) {
-    //         $query->where('warehouse_id', $warehouse_id);
-    //     })->get();
-    // }
-
-    public function getByCode($barcode)
-    {
-        return $this->where('barcode',$barcode)->first();
-    }
-
+     public function getTypeNameAttribute()
+     {
+         return $this->typeData? $this->typeData->name : 'N/A';
+     }
+     public function getCategoryNameAttribute()
+     {
+         return $this->categoryData? $this->categoryData->name : 'N/A';
+     }
+     public function getPurchaseUomIdAttribute()
+     {
+         return $this->purchaseUopData? $this->purchaseUopData->id : null;
+     }
+     public function getStockUopIdAttribute()
+     {
+         return $this->stockUopData? $this->stockUopData->id : null;
+     }
+     public function getTypeIdAttribute()
+     {
+         return $this->typeData? $this->typeData->id : null;
+     }
+     public function getCategoryIdAttribute()
+     {
+         return $this->categoryData? $this->categoryData->id : null;
+     }
+     public function purchaseUop()
+     {
+         return $this->belongsTo(Uop::class, 'purchase_uop_id', 'id');
+     }
+     public function stockUom()
+     {
+         return $this->belongsTo(Uop::class,'stock_uop_id', 'id');
+     }
+     public function type()
+     {
+         return $this->belongsTo(Type::class, 'type_id', 'id');
+     }
+     public function category()
+     {
+         return $this->belongsTo(Category::class, 'category_id', 'id');
+     }
 
 }
 

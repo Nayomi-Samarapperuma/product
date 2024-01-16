@@ -1,12 +1,12 @@
 <?php
 
-namespace domain\Facades\VendorDataFacade;
+namespace domain\Facades\ProductFacade;
 
-use domain\Services\VendorDataService\VendorDataService;
+use domain\Services\ProductService\ProductService;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * PurchasingData Facade
+ * Product Facade
  * php version 8
  *
  * @category Facade
@@ -14,15 +14,10 @@ use Illuminate\Support\Facades\Facade;
  * @license  https://cyberelysium.com Config
  * @link     https://cyberelysium.com
  * */
-class VendorDataFacade extends Facade
+class ProductFacade extends Facade
 {
-    /**
-     * getFacadeAccessor
-     *
-     * @return void
-     */
     protected static function getFacadeAccessor()
     {
-        return VendorDataService::class;
+        return ProductService::class;
     }
 }

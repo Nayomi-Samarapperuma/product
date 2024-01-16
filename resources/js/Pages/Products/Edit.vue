@@ -7,7 +7,7 @@
                         <div class="py-4 row align-items-center">
                             <div class="col-lg-6">
                                 <h6 class="mb-0 h2 text-dark d-inline-block">
-                                    Product Management
+                                    Products Management
                                 </h6>
                                 <nav aria-label="breadcrumb" class="d-none d-md-block">
                                     <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
@@ -18,11 +18,11 @@
                                         </li>
                                         <li class="breadcrumb-item">
                                             <Link :href="`/products`" class="text-purple">
-                                                Product Management
+                                                Products Management
                                             </Link>
                                         </li>
                                         <li class="breadcrumb-item active text-info" aria-current="page">
-                                            #{{ this.product.code }}
+                                            #{{ this.products.code }}
                                         </li>
                                     </ol>
                                 </nav>
@@ -32,7 +32,7 @@
                 </div>
             </div>
         </template>
-        <template #content>
+        <!-- <template #content>
             <div class="mt-4 row">
                 <div class="col-lg-2 col-md-2">
                     <div class="nav-wrapper-loc">
@@ -86,24 +86,24 @@
                             <li hidden></li>
                         </ul>
                     </div>
-                </div>
-                <div class="col-lg-10 col-md-10">
+                </div> -->
+                <!-- <div class="col-lg-10 col-md-10">
                     <div class="shadow card">
                         <div class="card-body">
                             <div class="tab-content" id="myTabContent">
                                 <div class="active tab-pane fade show" id="basic-data" role="tabpanel">
-                                    <BasicAll :productId="this.product.id" />
-                                </div>
-                                <div class="tab-pane fade show" id="purchasing-data" role="tabpanel">
-                                    <PurchasingData :productId="this.product.id" />
+                                    <BasicAll :productsId="this.products.id" />
+                                </div> -->
+                                <!-- <div class="tab-pane fade show" id="purchasing-data" role="tabpanel">
+                                    <PurchasingData :productsId="this.products.id" />
                                 </div>
                                 <div class="tab-pane fade show" id="vendor-data" role="tabpanel">
                                     <VendorData :productId="this.product.id" />
                                 </div>
                                 <div class="tab-pane fade show" id="mrp-data" role="tabpanel">
                                     <MrpData :productId="this.product.id" />
-                                </div>
-                                <div class="tab-pane fade show" id="classification-data" role="tabpanel">
+                                </div> -->
+                                <!-- <div class="tab-pane fade show" id="classification-data" role="tabpanel">
                                     <ClassificationData :productId="this.product.id" />
                                 </div>
                                 <div class="tab-pane" id="trade-data-tab">
@@ -114,16 +114,16 @@
                                 </div>
                                 <div class="tab-pane" id="test-report-tab">
                                     <TestReportAll :productId="this.product.id" />
-                                </div>
-                                <div class="tab-pane" id="warehouse-data-tab">
+                                </div> -->
+                                <!-- <div class="tab-pane" id="warehouse-data-tab">
                                     <WarehouseDataEditForm :productId="this.product.id" />
-                                </div>
-                            </div>
+                                </div> -->
+                            <!-- </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </template>
+        </template> -->
     </AppLayout>
 </template>
 
@@ -143,18 +143,6 @@ import {
     faDiamond,
 } from "@fortawesome/free-solid-svg-icons";
 
-import BasicAll from "@/Pages/Products/Components/Basic/all.vue";
-import PurchasingData from "@/Pages/Products/Components/Basic/PurchasingData.vue";
-
-import VendorData from "@/Pages/Products/Components/Basic/VendorData.vue";
-import MrpData from "@/Pages/Products/Components/Basic/MrpData.vue";
-import ClassificationData from "@/Pages/Products/Components/Basic/ClassificationData.vue";
-import ForeignTradeEditForm from "@/Pages/Products/Components/Basic/ForeignTrade.vue";
-import CustomDutyAll from "@/Pages/Products/Components/Basic/CustomDuty.vue";
-import TestReportAll from "@/Pages/Products/Components/Basic/TestReport.vue";
-import WarehouseDataEditForm from "@/Pages/Products/Components/Basic/WarehouseData.vue";
-
-// import CostingAll from '@/Pages/Products/Components/Costing/all.vue';
 
 export default {
     components: {
@@ -164,19 +152,10 @@ export default {
         usePage,
         axios,
         Swal,
-        BasicAll,
-        PurchasingData,
-        VendorData,
-        MrpData,
-        ClassificationData,
-        ForeignTradeEditForm,
-        CustomDutyAll,
-        TestReportAll,
-        WarehouseDataEditForm,
         library,
     },
     props: {
-        product: Object,
+        products: Object,
     },
     // setup() {
     //     const product = computed(() => usePage().props.value.product)
@@ -196,4 +175,6 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+
+</style>

@@ -22,7 +22,7 @@
                             </nav>
                         </div>
                         <div class="col-lg-4 text-right pt-5" v-if="can('create_products')">
-                            <a href="javascript:void(0)" data-toggle="modal" data-target="#newProductModal"
+                            <a href="javascript:void(0)" data-toggle="modal" data-target="#newproductModal"
                                 class="btn btn-sm btn-outline--info ml-auto">
                                 <font-awesome-icon icon="fa-solid fa-circle-plus" />
                                 ADD NEW
@@ -44,16 +44,16 @@
                                 <input type="text" class="form-control form-control-sm" name="code" id="code"
                                     v-model="search_product.code" placeholder="Code" @keyup="getSearch" />
                             </div>
-                            <div class="col-md-2 column__right___padding column__left___padding">
+                            <!-- <div class="col-md-2 column__right___padding column__left___padding">
                                 <div for="purchase_uom" class="col-form-label">
                                     BARCODE
                                 </div>
                                 <input type="text" class="form-control form-control-sm" name="barcode" id="barcode"
                                     v-model="search_product.barcode" placeholder="Barcode" @keyup="getSearch" />
-                            </div>
+                            </div> -->
                             <div class="col-md-3 column__right___padding column__left___padding">
                                 <div for="purchase_uom" class="col-form-label">
-                                    PRODUCT NAME
+                                    product NAME
                                 </div>
                                 <input type="text" class="form-control form-control-sm" name="name" id="name"
                                     v-model="search_product.name" placeholder="Product Name" @keyup="getSearch" />
@@ -104,30 +104,30 @@
                                             <font-awesome-icon class="icon_item-icon" icon="fa-solid fa-wrench"
                                                 rotation="{270}" color="#505050" />
                                         </div>
-                                        <div class="p-2 border icon_item" v-if="can('active_products')">
+                                        <!-- <div class="p-2 border icon_item" v-if="can('active_products')">
                                             <a @click.prevent="
                                                 activeSelectedItems(
-                                                    checkProdrialTypeItems
+                                                    checkMatirialTypeItems
                                                 )
                                                 ">
                                                 <font-awesome-icon class="icon_item-icon" icon="fa-solid fa-circle-check"
                                                     color="#0bd018" />
                                             </a>
-                                        </div>
-                                        <div class="p-2 border icon_item" v-if="can('inactive_products')">
+                                        </div> -->
+                                        <!-- <div class="p-2 border icon_item" v-if="can('inactive_product')">
                                             <a @click.prevent="
                                                 inactiveSelectedItems(
-                                                    checkProductTypeItems
+                                                    checkMatirialTypeItems
                                                 )
                                                 ">
                                                 <font-awesome-icon class="icon_item-icon" icon="fa-solid fa-circle-minus"
                                                     color="#eb0505" />
                                             </a>
-                                        </div>
-                                        <div class="p-2 border icon_item" v-if="this.checkProdItems.length > 0 && can('create_products')">
+                                        </div> -->
+                                        <div class="p-2 border icon_item" v-if="this.checkMatiItems.length > 0 && can('create_products')">
                                             <a href="javascript:void(0)" @click.prevent="
                                                 deleteSelectedItems(
-                                                    checkProdItems
+                                                    checkMatiItems
                                                 )
                                                 ">
                                                 <font-awesome-icon class="icon_item-icon" icon="fa-solid fa-trash"
@@ -158,28 +158,28 @@
                                                     v-if="this.products.length > 0" :checked="this.checkAllItems.length==this.checkProdItems.length>0"  v-model="checkAllItems" />
                                                 </div>
                                             </th>
-                                            <th :class="iconClassHead" class="pl-0">
+                                            <!-- <th :class="iconClassHead" class="pl-0">
                                                 STATUS
-                                            </th>
+                                            </th> -->
                                             <th :class="textClassHead">Code</th>
                                             <th :class="textClassHead">Name</th>
-                                            <th :class="textClassHead">
+                                            <!-- <th :class="textClassHead">
                                                 Barcode
-                                            </th>
-                                            <th :class="valueClassHead" class="text_align_end">
+                                            </th> -->
+                                            <!-- <th :class="valueClassHead" class="text_align_end">
                                                 Cost
-                                            </th>
+                                            </th> -->
                                             <th :class="valueClassHead" class="text_align_end">
                                                 Selling Price
                                             </th>
-                                            <th :class="textClassHead">
-                                                Purchase UOP
-                                            </th>
-                                            <th :class="textClassHead">
-                                                Stock UOP
-                                            </th>
+                                            <!-- <th :class="textClassHead">
+                                                Purchase UOM
+                                            </th> -->
+                                            <!-- <th :class="textClassHead">
+                                                Stock UOM
+                                            </th> -->
                                             <th :class="textClassHead">Size</th>
-                                            <th :class="textClassHead">Type</th>
+                                            <!-- <th :class="textClassHead">Type</th> -->
                                             <th :class="textClassHead">
                                                 Category
                                             </th>
@@ -190,20 +190,20 @@
                                         <tr v-for="product in products" :key="product.id" :class="rowClass">
                                             <td class="pt-2">
                                                 <div class="form-check mb-4">
-                                                    <input class="form-check-input" type="checkbox" v-model="checkProdItems"
+                                                    <input class="form-check-input" type="checkbox" v-model="checkMatiItems"
                                                         v-bind:value="product" v-bind:id="product.id" />
                                                 </div>
                                             </td>
-                                            <td :class="iconClassBody" class="pt-2 pl-0">
-                                                <label v-if="product.status == 1"
+                                            <!-- <td :class="iconClassBody" class="pt-2 pl-0">
+                                                <label v-if="products.status == 1"
                                                     class="badge bg-success text-white fw-bold">Active</label>
-                                                <label v-if="product.status == 0"
+                                                <label v-if="products.status == 0"
                                                     class="badge bg-warning text-white fw-bold">Deactive</label>
-                                            </td>
+                                            </td> -->
                                             <td :class="textClassBody" class="pt-2">
                                                 {{ product.code }}
                                                 <span class="ml-1" v-if="product.stock_qty <=
-                                                product.rol
+                                                    product.rol
                                                     ">
                                                     <font-awesome-icon color="#FF5733" icon="fa-solid fa-flag" />
                                                 </span>
@@ -211,12 +211,12 @@
                                             <td :class="textClassBody" class="pt-2">
                                                 {{ product.name }}
                                             </td>
-                                            <td :class="textClassBody" class="pt-2">
+                                            <!-- <td :class="textClassBody" class="pt-2">
                                                 {{ product.barcode }}
-                                            </td>
-                                            <td :class="valueClassBody" class="pt-2 text_align_end">
+                                            </td> -->
+                                            <!-- <td :class="valueClassBody" class="pt-2 text_align_end">
                                                 {{ formatPrice(product.cost) }}
-                                            </td>
+                                            </td> -->
                                             <td :class="valueClassBody" class="pt-2 text_align_end">
                                                 {{
                                                     formatPrice(
@@ -224,15 +224,15 @@
                                                     )
                                                 }}
                                             </td>
-                                            <td :class="textClassBody" class="pt-2">
-                                                {{ product.purchase_uop_name }}
-                                            </td>
-                                            <td :class="textClassBody" class="pt-2">
-                                                {{ product.stock_uop_name }}
-                                            </td>
-                                            <td :class="textClassBody" class="pt-2">
+                                            <!-- <td :class="textClassBody" class="pt-2">
+                                                {{ product.purchase_uom_name }}
+                                            </td> -->
+                                            <!-- <td :class="textClassBody" class="pt-2">
+                                                {{ product.stock_uom_name }}
+                                            </td> -->
+                                            <!-- <td :class="textClassBody" class="pt-2">
                                                 {{ product.size }}
-                                            </td>
+                                            </td> -->
                                             <td :class="textClassBody" class="pt-2">
                                                 {{ product.type_name }}
                                             </td>
@@ -242,7 +242,7 @@
 
                                             <td :class="textClassBody">
                                                 <a v-if="can('update_products')" href="javascript:void(0)" @click.prevent="
-                                                    editProducts(
+                                                    editproducts(
                                                         product.id
                                                     )
                                                     ">
@@ -329,12 +329,12 @@
         </template>
         <template #modals>
             <div class="modal fade" id="newProductModal" data-backdrop="static" tabindex="-1" role="dialog"
-                aria-labelledby="newrPoductModal" aria-hidden="true">
+                aria-labelledby="newProductModal" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title font-weight-bolder text-info text-gradient" id="add_brandLabel">
-                                New Product
+                                New product
                             </h5>
                             <button type="button" class="close btn" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">
@@ -383,7 +383,7 @@
                                                     validationErrors.barcode }}</small>
                                             </div>
                                         </div> -->
-                                        <div class="row mb-1">
+                                        <!-- <div class="row mb-1">
                                             <div for="description" class="col-md-2 col-form-label">
                                                 DESCRIPTION
                                             </div>
@@ -397,8 +397,8 @@
                                                         validationErrors.description
                                                     }}</small>
                                             </div>
-                                        </div>
-                                        <div class="row mb-1">
+                                        </div> -->
+                                        <!-- <div class="row mb-1">
                                             <div for="cost" class="col-md-2 col-form-label">
                                                 COST
                                             </div>
@@ -410,7 +410,7 @@
                                                         validationErrors.cost
                                                     }}</small>
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <div class="row mb-1">
                                             <div for="selling_price" class="col-md-2 col-form-label">
                                                 SELLING PRICE
@@ -426,7 +426,7 @@
                                                     }}</small>
                                             </div>
                                         </div>
-                                        <div class="row mb-1">
+                                        <!-- <div class="row mb-1">
                                             <div for="purchase_uom" class="col-md-2 col-form-label">
                                                 PURCHASE UOM
                                             </div>
@@ -441,8 +441,8 @@
                                                         validationErrors.purchase_uom
                                                     }}</small>
                                             </div>
-                                        </div>
-                                        <div class="row mb-1">
+                                        </div> -->
+                                        <!-- <div class="row mb-1">
                                             <div for="stock_uom" class="col-md-2 col-form-label">
                                                 STOCK UOM
                                             </div>
@@ -457,8 +457,8 @@
                                                         validationErrors.stock_uom
                                                     }}</small>
                                             </div>
-                                        </div>
-                                        <div class="row mb-1">
+                                        </div> -->
+                                        <!-- <div class="row mb-1">
                                             <div for="type" class="col-md-2 col-form-label">
                                                 TYPE
                                             </div>
@@ -472,7 +472,7 @@
                                                         validationErrors.type
                                                     }}</small>
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <div class="row mb-1">
                                             <div for="category_id" class="col-md-2 col-form-label">
                                                 CATEGORY
@@ -560,8 +560,8 @@ export default {
             pagination: {},
 
             product: {},
-            select_purchase_uop: null,
-            select_stock_uop: null,
+            select_purchase_uom: null,
+            select_stock_uom: null,
             units: [],
             select_type: null,
             categories: [],
@@ -572,17 +572,17 @@ export default {
             select_category_level_2: null,
             select_category_level_3: null,
             select_category_level_4: null,
-            productTypes: [],
+
 
             all_cat: [],
             select_search_category: null,
             search_product: {},
 
-            select_search_vendor: null,
-            vendors: [],
+            //select_search_vendor: null,
+            //vendors: [],
 
-            products: [],
-            checkProdItems: [],
+            productss: [],
+            checkMatiItems: [],
             checkAllItems: false,
         };
     },
@@ -604,10 +604,10 @@ export default {
         library.add(faPenToSquare);
         library.add(faPen);
 
-        //this.getProductTypes();
+        // this.getproductTypes();
         this.getCategoriesLevel1();
         this.getUOMs();
-        this.getProducts();
+        this.getproducts();
         this.getCategories();
     },
     watch: {
@@ -617,14 +617,14 @@ export default {
                     item.selected = value;
                 }
             });
-            if (this.checkProdItems.length == this.products.length) {
-                this.checkProdItems = [];
+            if (this.checkMatiItems.length == this.products.length) {
+                this.checkMatiItems = [];
             } else {
-                this.checkProdItems = this.products;
+                this.checkMatiItems = this.products;
             }
         },
-        checkProdItems(value) {
-            if (this.checkProdItems.length !== this.products.length) {
+        checkMatiItems(value) {
+            if (this.checkMatiItems.length !== this.products.length) {
                 this.checkAllItems = false;
             }
         },
@@ -672,15 +672,15 @@ export default {
 
         selectAll: function (event) {
             if (event.target.checked == false) {
-                this.checkProdItems = [];
+                this.checkMatiItems = [];
             } else {
                 this.products.forEach((product) => {
-                    this.checkProdItems.push(product.id);
+                    this.checkMatiItems.push(product.id);
                 });
             }
         },
 
-        async deleteSelectedItems(checkProdItems) {
+        async deleteSelectedItems(checkMatiItems) {
             this.$root.loader.start();
             try {
                 Swal.fire({
@@ -693,7 +693,7 @@ export default {
                     confirmButtonText: "Yes, delete it!",
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        const ids = this.checkProdItems.map(
+                        const ids = this.checkMatiItems.map(
                             (product) => product.id
                         );
                         axios
@@ -703,7 +703,7 @@ export default {
                             });
                         Swal.fire(
                             "Deleted!",
-                            `Product has been deleted.`,
+                            `product has been deleted.`,
                             "success"
                         );
                     }
@@ -713,37 +713,37 @@ export default {
                 this.convertValidationNotification(error);
             }
         },
-        async activeSelectedItems(checkProdItems) {
-            this.$nextTick(() => {
-                this.$root.loader.start();
-            });
-            const ids = this.checkProdItems.map((product) => product.id);
-            axios
-                .post(route("products.active.selected"), { ids })
-                .then((response) => {
-                    this.checkProdItems = [];
-                    this.reload();
-                });
-            this.$nextTick(() => {
-                this.$root.loader.finish();
-            });
-        },
+        // async activeSelectedItems(checkMatiItems) {
+        //     this.$nextTick(() => {
+        //         this.$root.loader.start();
+        //     });
+        //     const ids = this.checkMatiItems.map((product) => product.id);
+        //     axios
+        //         .post(route("products.active.selected"), { ids })
+        //         .then((response) => {
+        //             this.checkMatiItems = [];
+        //             this.reload();
+        //         });
+        //     this.$nextTick(() => {
+        //         this.$root.loader.finish();
+        //     });
+        // },
 
-        async inactiveSelectedItems(checkProdItems) {
-            this.$nextTick(() => {
-                this.$root.loader.start();
-            });
-            const ids = this.checkProdItems.map((product) => product.id);
-            axios
-                .post(route("products.inactive.selected"), { ids })
-                .then((response) => {
-                    this.checkProdItems = [];
-                    this.reload();
-                });
-            this.$nextTick(() => {
-                this.$root.loader.finish();
-            });
-        },
+        // async inactiveSelectedItems(checkMatiItems) {
+        //     this.$nextTick(() => {
+        //         this.$root.loader.start();
+        //     });
+        //     const ids = this.checkMatiItems.map((products) => products.id);
+        //     axios
+        //         .post(route("productss.inactive.selected"), { ids })
+        //         .then((response) => {
+        //             this.checkMatiItems = [];
+        //             this.reload();
+        //         });
+        //     this.$nextTick(() => {
+        //         this.$root.loader.finish();
+        //     });
+        // },
 
         async setPage(page) {
             this.page = page;
@@ -781,23 +781,23 @@ export default {
             this.reload();
         },
 
-        async getUOMs() {
-            const units = (await axios.get(route("units.all"))).data;
-            this.units = units.data;
-            console.log(this.units);
-        },
-        async getProductTypes() {
-            const productTypes = (await axios.get(route("productType.all")))
-                .data;
-            this.productTypes = productTypes.data;
-        },
+        // async getUOMs() {
+        //     const units = (await axios.get(route("units.all"))).data;
+        //     this.units = units.data;
+        //     console.log(this.units);
+        // },
+        // async getproductsTypes() {
+        //     const productsTypes = (await axios.get(route("productsType.all")))
+        //         .data;
+        //     this.productsTypes = productsTypes.data;
+        // },
 
-        async getCategoriesLevel1() {
-            const categories = (
-                await axios.get(route("productCategory.level1.all"))
-            ).data;
-            this.categories = categories;
-        },
+        // async getCategoriesLevel1() {
+        //     const categories = (
+        //         await axios.get(route("productsCategory.level1.all"))
+        //     ).data;
+        //     this.categories = categories;
+        // },
 
         async getCategories() {
             const all_cat = (
@@ -805,68 +805,68 @@ export default {
             ).data;
             this.all_cat = all_cat;
         },
-        async getProducts() {
+        async getProduct() {
             this.$nextTick(() => {
                 this.$root.loader.start();
             });
             const tableData = (await axios.get(route("product.all"))).data;
             // console.log(tableData)
-            this.products = tableData.data;
+            this.product = tableData.data;
             this.pagination = tableData.meta;
             this.$nextTick(() => {
                 this.$root.loader.finish();
             });
         },
-        async createProduct() {
-            this.resetValidationErrors();
-            try {
-                if (this.select_purchase_uom) {
-                    this.product.purchase_uom = this.select_purchase_uom.id;
-                }
-                if (this.select_stock_uom) {
-                    this.product.stock_uom = this.select_stock_uom.id;
-                }
-                if (this.select_type) {
-                    this.product.type = this.select_type.id;
-                }
-                if (this.select_category_level_1) {
-                    this.product.category = this.select_category_level_1.id;
-                }
-                if (this.select_category_level_1) {
-                    this.product.category_l1_id =this.select_category_level_1.id;
-                }
-                if (this.select_search_vendor) {
-                    this.product.vendor = this.select_search_vendor.name;
-                    this.product.vendor_id = this.select_search_vendor.id;
-                }
-                if (!this.product.barcode) {
-                    this.product.barcode = this.product.code;
-                }
-                const product = (
-                    await axios.post(route("product.store"), this.product)
-                ).data;
-                // console.log(product.id);
-                $("#newProductModal").modal("hide");
-                window.location.href = route("product.edit", product.id);
-                this.reload();
-                this.product = {};
-                this.select_category_level_4 = null;
-                this.select_category_level_3 = null;
-                this.select_category_level_2 = null;
-                this.select_category_level_1 = null;
-                this.select_purchase_uom = null;
-                this.select_stock_uom = null;
-                this.select_type = null;
-                this.$root.notify.success({
-                    title: "Success",
-                    message: "Product created successfully",
-                });
-            } catch (error) {
-                this.convertValidationNotification(error);
-                this.convertValidationError(error);
-            }
-        },
-        async editProducts(productId) {
+        // async createproduct() {
+        //     this.resetValidationErrors();
+        //     try {
+        //         if (this.select_purchase_uom) {
+        //             this.products.purchase_uom = this.select_purchase_uom.id;
+        //         }
+        //         if (this.select_stock_uom) {
+        //             this.products.stock_uom = this.select_stock_uom.id;
+        //         }
+        //         if (this.select_type) {
+        //             this.products.type = this.select_type.id;
+        //         }
+        //         if (this.select_category_level_1) {
+        //             this.products.category = this.select_category_level_1.id;
+        //         }
+        //         if (this.select_category_level_1) {
+        //             this.products.category_l1_id =this.select_category_level_1.id;
+        //         }
+        //         if (this.select_search_vendor) {
+        //             this.products.vendor = this.select_search_vendor.name;
+        //             this.products.vendor_id = this.select_search_vendor.id;
+        //         }
+        //         if (!this.products.barcode) {
+        //             this.products.barcode = this.products.code;
+        //         }
+        //         const products = (
+        //             await axios.post(route("products.store"), this.products)
+        //         ).data;
+        //         // console.log(products.id);
+        //         $("#newproductsModal").modal("hide");
+        //         window.location.href = route("products.edit", products.id);
+        //         this.reload();
+        //         this.products = {};
+        //         this.select_category_level_4 = null;
+        //         this.select_category_level_3 = null;
+        //         this.select_category_level_2 = null;
+        //         this.select_category_level_1 = null;
+        //         this.select_purchase_uom = null;
+        //         this.select_stock_uom = null;
+        //         this.select_type = null;
+        //         this.$root.notify.success({
+        //             title: "Success",
+        //             message: "products created successfully",
+        //         });
+        //     } catch (error) {
+        //         this.convertValidationNotification(error);
+        //         this.convertValidationError(error);
+        //     }
+        // },
+        async editProduct(productId) {
             // this.$inertia.visit(route('product.edit', productId));
             window.location.href = route("product.edit", productId);
         },
