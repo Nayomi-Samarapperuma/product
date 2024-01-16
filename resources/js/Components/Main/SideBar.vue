@@ -20,40 +20,13 @@
                             <span class="ml-2 nav-link-text font-weight-400">Dashboard</span>
                             </Link>
                         </li>
-
                         <li class="nav-item">
-                            <a class="nav-link" href="#products" data-toggle="collapse" aria-expanded="true">
-                                <font-awesome-icon icon="fa-solid fa-folder-open" /><span class="ml-2">Product</span>
-                            </a>
-                            <ul :class="{ 'collapse': $page.url.startsWith('/productCategory') || $page.url.startsWith('/units') || $page.url.startsWith('/warehouses') || $page.url.startsWith('/currency') || $page.url.startsWith('/country') || $page.url.startsWith('/measurement') || $page.url.startsWith('/product-category') || $page.url.startsWith('/product-type') || $page.url.startsWith('/vendors') || route().current() == 'dashboard' || $page.url.startsWith('/unit-conversion') || $page.url.startsWith('/tax') || $page.url.startsWith('/users') || $page.url.startsWith('/grn') }"
-                                class=" list-unstyled" id="productMenu">
-                                <li class="nav-item">
-                                    <Link :class="{ 'active': $page.url.startsWith('/products') }"
-                                        class="nav-link active-preloader" :href="route('product.index')">
-                                    <font-awesome-icon icon="fa-solid fa-folder " class="ml-4" />
-                                    <span class="ml-2 hide-menu">All</span>
-                                    </Link>
-                                </li>
-                            </ul>
-                            <ul :class="{ 'collapse': $page.url.startsWith('/productRequestNote') || $page.url.startsWith('/report') ||  $page.url.startsWith('/vendors') || $page.url.startsWith('/gi') || $page.url.startsWith('/invoice') ||$page.url.startsWith('/custom-order')|| $page.url.startsWith('/gt') || $page.url.startsWith('/bom') || $page.url.startsWith('/products') || $page.url.startsWith('/mr') || $page.url.startsWith('/grn') || $page.url.startsWith('/pr') || route().current() == 'dashboard' || $page.url.startsWith('/shipment-orders')||$page.url.startsWith('/customer') || $page.url.startsWith('/crm') || $page.url.startsWith('/barcode-print') || $page.url.startsWith('/po') || $page.url.startsWith('/audit') || $page.url.startsWith('/stock') }"
-                                class=" list-unstyled" id="settingsMenu">
-                                <li class="nav-item">
-                                    <Link :class="{ 'active': $page.url.startsWith('/product-type') }"
-                                        class="nav-link active-preloader">
-                                    <font-awesome-icon icon="fa-solid fa-layer-group " class="ml-4" /><span
-                                        class="ml-2 hide-menu">Product Types</span>
-                                    </Link>
-                                </li>
-                                <li class="nav-item">
-                                    <Link :class="{ 'active': $page.url.startsWith('/product-category') }"
-                                        class="nav-link active-preloader">
-                                    <font-awesome-icon icon="fa-solid fa-folder " class="ml-4" /><span
-                                        class="ml-2 hide-menu">Product Categories</span>
-                                    </Link>
-                                </li>
-                            </ul>
+                            <Link :class="{ 'active': $page.url.startsWith('/product') }" class="nav-link active-preloader"
+                                :href="route('product.index')">
+                              <font-awesome-icon icon="fa-solid fa-users" />
+                            <span class="ml-2 nav-link-text font-weight-400">Products</span>
+                            </Link>
                         </li>
-
                     </ul>
                 </div>
             </div>
@@ -75,11 +48,7 @@ export default {
         Link,
         library,
     },
-    data() {
-        return {
-            productTypes: [],
-        }
-    },
+
     beforeMount() {
         library.add(faCartShopping)
         library.add(faDesktop)
@@ -113,11 +82,7 @@ export default {
         library.add(faCoins)
         library.add(faPeopleCarryBox)
 
-        //this.getProductTypes();
 
-        // if(!window.Laravel){
-        //     window.location.reload();
-        // }
     },
     methods: {
         isActive(route, path) {
@@ -125,10 +90,7 @@ export default {
                 return path.includes(route);
             }
         },
-        // async getProductTypes() {
-        //     const productTypes = (await axios.get(route("productType.all"))).data;
-        //     this.productTypes = productTypes.data;
-        // }
+
     }
 }
 

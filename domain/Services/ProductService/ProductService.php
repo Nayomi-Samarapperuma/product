@@ -4,30 +4,20 @@ namespace domain\Services\ProductService;
 
 use App\Models\Product;
 
-/**
- * ProductService
- *
- * @category Service
- * @author   CyberElysium <contact@cyberelysium.com>
- * @license  https://cyberelysium.com Config
- * @link     https://cyberelysium.com
- * */
+
 class ProductService
 {
 
-    protected $product;
-    protected $product_id;
-    protected $consignment;
 
     /**
      * __construct
      *
      * @return void
      */
+
     public function __construct()
     {
         $this->product = new Product();
-        // $this->consignment = new ConsignmentItem();
     }
 
     /**
@@ -38,12 +28,7 @@ class ProductService
      */
     public function all()
     {
-        return $this->product->all();
-    }
-
-    public function productsCount()
-    {
-        return $this->product->count();
+        return $this->Product->all();
     }
 
     /**
@@ -55,7 +40,7 @@ class ProductService
      */
     public function store(array $data)
     {
-        $this->product->create($data);
+        return $this->Product->create($data);
     }
 
     /**
@@ -65,9 +50,9 @@ class ProductService
      * @param  int  $product_id
      * @return void
      */
-    public function get(int $product_id)
+    public function get($product_id)
     {
-        return $this->product->find($product_id)->load('images');
+        return $this->Product->find($product_id);
     }
 
     /**
@@ -78,10 +63,10 @@ class ProductService
      * @param  int   $product_id
      * @return void
      */
-    public function update(array $data, int $product_id)
+    public function update(array $data, $product_id)
     {
-        $product = $this->product->find($product_id);
-        return $product->update($this->edit($product, $data));
+        $Product = $this->Product->find($product_id);
+        return $Product->update($this->edit($Product, $data));
     }
 
 
@@ -93,13 +78,75 @@ class ProductService
      * @param  array    $data
      * @return void
      */
-    protected function edit(product $product, array $data)
+    protected function edit(Product $product, $data)
     {
         return array_merge($product->toArray(), $data);
     }
 
     /**
-     * Delete
+     * deleteSelected
+     *
+     * @param  mixed $data
+     * @return void
+
+    */
+
+    public function deleteSelected($data)
+    {
+        $ids = $data->input('ids');
+        Product::whereIn('id', $ids)->delete();
+
+        return response()->json([
+          'success' => true,
+        ]);
+    }
+
+    /**
+     * inactive
+     *
+     * @param  mixed $data
+     * @return void
+     */
+
+     public function inactive($data)
+     {
+         $ids = $data->input('ids');
+
+         $Products = Product::whereIn('id', $ids)->get();
+
+         foreach ($Products as $Product) {
+             $Product->status = 0;
+             $Product->update();
+         }
+
+         return response()->json([
+           'success' => true,
+         ]);
+     }
+
+     /**
+     * active
+     *
+     * @param  mixed $data
+     * @return void
+     */
+     public function active($data)
+     {
+         $ids = $data->input('ids');
+
+         $Products = Product::whereIn('id', $ids)->get();
+
+         foreach ($Products as $Product) {
+             $Product->status = 1;
+             $Product->update();
+         }
+
+         return response()->json([
+          'success' => true,
+         ]);
+     }
+
+    /* * Delete
      * delete specific data using product_id
      *
      * @param  int  $product_id
@@ -107,87 +154,6 @@ class ProductService
      */
     public function delete(int $product_id)
     {
-        $product = $this->product->find($product_id);
-        return $product->delete();
+        return $this->Product->find($product_id)->delete();
     }
-
-    /**
-     * deleteForce
-     *
-     * @param  int $product_id
-     * @return void
-     */
-    // public function deleteForce(int $product_id)
-    // {
-    //     $product = $this->product->find($product_id);
-    //     $product->forceDelete();
-    // }
-
-    /**
-     * getProductForBom
-     *
-     * @return void
-     */
-    // public function getProductForBom()
-    // {
-    //     return $this->product->getProductForBom();
-    // }
-
-    // public function finishGood()
-    // {
-    //     return $this->product->getFinishGood();
-    // }
-
-    // public function bulkUpdate(int $id, array $data)
-    // {
-    //     $product = $this->product->find($id);
-    //     $product->cost = $data['cost'];
-    //     $product->selling_price = $data['selling_price'];
-    //     $product->save();
-    // }
-
-    // public function getByCode($barcode)
-    // {
-    //     return $this->product->getByCode($barcode);
-    // }
-    // public function deleteSelected($data)
-    // {
-    //     $ids = $data->input('ids');
-    //     Product::whereIn('id', $ids)->delete();
-
-    //     return response()->json([
-    //         'success' => true,
-    //     ]);
-    // }
-
-    // public function inactive($data)
-    // {
-    //     $ids = $data->input('ids');
-
-    //     $products = Product::whereIn('id', $ids)->get();
-
-    //     foreach ($products as $product) {
-    //         $product->status = 0;
-    //         $product->update();
-    //     }
-
-    //     return response()->json([
-    //         'success' => true,
-    //     ]);
-    // }
-    // public function active($data)
-    // {
-    //     $ids = $data->input('ids');
-
-    //     $products = Product::whereIn('id', $ids)->get();
-
-    //     foreach ($products as $product) {
-    //         $product->status = 1;
-    //         $product->update();
-    //     }
-
-    //     return response()->json([
-    //         'success' => true,
-    //     ]);
-    // }
 }

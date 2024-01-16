@@ -12,71 +12,51 @@ class ProductController extends ParentController
 {
     public function index()
     {
-         $response ['product'] = ProductFacade::all();
-        return Inertia::render('Products/index',$response);
+        return Inertia::render('Products/index');
     }
-    
-    /**
-     * store
-     *
-     * @param  ProductRequest $request
-     * @return void
-     */
+
     public function store(ProductRequest $request)
     {
       ProductFacade::store($request->all());
       return redirect()->back;
     }
 
-
-    /**
-     * delete
-     *
-     * @param  int $product_id
-     * @return void
-     */
-    public function delete(int $product_id)
-    {
-        ProductFacade::delete($product_id);
-        return redirect()->back();
-    }
-
-    /**
-     * edit
-     *
-     * @param  int $product_id
-     * @return void
-     */
-    public function edit(int $product_id)
-    {
-        ProductFacade::edit($product_id->all());
-        return redirect()->back;
-    }
-
-    /**
-     * get
-     *
-     * @param  int $product_id
-     * @return void
-     */
     public function get(int $product_id)
     {
         $payload = ProductFacade::get($product_id);
         return new DataResource($payload);
     }
 
-    /**
-     * update
-     *
-     * @param  UpdateProductBasicRequest $request
-     * @param  int $product_id
-     * @return void
-     */
-    public function update(UpdateProductBasicRequest $request, int $product_id)
+    public function edit(int $product_id)
+    {
+        $response['product'] = ProductFacade::get($product_id);
+        return Inertia::render('Products/edit', $response);
+    }
+
+    public function update(UpdateProductRequest $request, int $product_id)
         {
-            ProductFacade::update($request->all(), $product_id);
-            return redirect()->route('product.index')->with($response);
+            return ProductFacade::update($request->all(), $product_id);
         }
+
+    public function delete(int $product_id)
+    {
+        return ProductFacade::delete($product_id);
+    }
+
+    public function deleteSelectedItems(Request $request)
+    {
+        return ProductFacade::deleteSelected($request);
+    }
+
+    public function inactiveSelectedItems(Request $request)
+    {
+        return ProductFacade::inactive($request);
+    }
+
+    public function activeSelectedItems(Request $request)
+    {
+        return ProductFacade::active($request);
+    }
 
 }
 
