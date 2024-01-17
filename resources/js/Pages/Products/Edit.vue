@@ -71,7 +71,7 @@ import { usePage } from "@inertiajs/vue3";
 import axios from "axios";
 import Swal from "sweetalert2";
 
-import BasicEditForm from "@/Pages/Customer/Basic/EditForm.vue";
+import BasicEditForm from "@/Pages/Products/Basic/EditForm.vue";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
     faHouse,

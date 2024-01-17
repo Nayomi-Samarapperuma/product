@@ -18,24 +18,6 @@ use App\Http\Controllers\ProductController;
 |
 */
 
-// Route::get('/', function () {
-//     return Inertia::render('Welcome', [
-//         'canLogin' => Route::has('login'),
-//         'canRegister' => Route::has('register'),
-//         'laravelVersion' => Application::VERSION,
-//         'phpVersion' => PHP_VERSION,
-//     ]);
-// });
-
-// Route::get('/dashboard', function () {
-//     return Inertia::render('Dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
-
-// Route::middleware('auth')->group(function () {
-//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-// });
 
 
 Route::get('/', [HomeController::class, "index"])->name('dashboard');
@@ -47,8 +29,13 @@ Route::prefix('products')->group(function () {
     Route::get('/{product_id}/edit', [ProductController::class, "edit"])->name('product.edit');
     Route::get('/{product_id}/get', [ProductController::class, "get"])->name('product.get');
     Route::post('/{product_id}/basic/update', [ProductController::class, "update"])->name('product.basic.update');
+    Route::post('/{product_id}/select/product/delete', [ProductController::class, 'deleteSelectedItems'])->name('product.delete.selected');
+    Route::post('/select/product/inactive', [ProductController::class, 'inactiveSelectedItems'])->name('product.inactive.selected');
+    Route::post('/select/product/active', [ProductController::class, 'activeSelectedItems'])->name('product.active.selected');
 
 
 });
 
 require __DIR__.'/auth.php';
+
+

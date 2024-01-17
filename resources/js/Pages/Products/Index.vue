@@ -129,8 +129,6 @@
                                             <th :class="textClassHead">Name</th>
                                             <th :class="textClassHead">Price</th>
                                             <th :class="textClassHead">Description</th>
-
-
                                             <th></th>
                                         </tr>
                                     </thead>
@@ -201,7 +199,7 @@
                                                     ? 'disabled'
                                                     : ''
                                                 ">
-                                                <a class="page-link" href="javascript:void(0)"
+                                                <a class="page-link" href=""
                                                     @click="setPage(pagination.current_page + 1)">
                                                     <i class="fa-solid fa-angles-right"></i>
                                                 </a>
@@ -349,120 +347,7 @@ export default {
         library.add(faPen);
 
 
-
     },
-
-
-     methods: {
-
-        async setPage(page) {
-            this.page = page;
-            this.reload();
-        },
-        async getSearch() {
-            this.page = 1;
-            this.reload();
-        },
-        async perPageChange() {
-            this.reload();
-        },
-        
-
-            async createProduct() {
-                this.resetValidationErrors();
-                try {
-
-                    const product = (await axios.post(route("products.store"), this.product))
-                        .data;
-                    window.location.href = route("products.edit", product.id);
-                    $("#newVendorModal").modal("hide");
-                    this.product= {};
-                    this.$root.notify.success({
-                        title: "Success",
-                        message: "Product created successfully",
-                    });
-                } catch (error) {
-                    this.convertValidationNotification(error);
-                }
-            },
-
-            async editProduct(productId) {
-
-            window.location.href = route("products.edit", productId);
-        },
-
-            async newProduct() {
-                this.$root.loader.start();
-                this.product= {};
-                $("#newProductModal").modal("show");
-                this.$root.loader.finish();
-            },
-
-            async clearFilters() {
-                this.search_vendor = {};
-                this.reload();
-            },
-
-            async inactiveSelectedItems(checkProductItems) {
-            this.$root.loader.start();
-            const ids = this.checkProductItems.map((checkProductItems) =>this.product.id);
-            axios.post(route("Products.inactive.selected"), { product_ids })
-                .then((response) => {
-                    this.checkVendorItems = [];
-                    this.reload();
-                });
-            this.$root.loader.finish();
-            },
-
-            async activeSelectedItems(checkProductItems) {
-                this.$root.loader.start();
-                const ids = this.checkProductItems.map((product) => product.id);
-                axios.post(route("products.active.selected"), { product_ids }).then((response) => {
-                    this.checkVendorItems = [];
-                    this.reload();
-                });
-                this.$root.loader.finish();
-            },
-
-            selectAll: function (event) {
-                if (event.target.checked == false) {
-                    this.checkVendorItems = [];
-                } else {
-                    this.product.forEach((product) => {
-                        this.checkVendorItems.push(product.id);
-                    });
-                }
-            },
-
-
-            async deleteSelectedItems(checkProductItems) {
-                this.$root.loader.start();
-                try {
-                    Swal.fire({
-                        title: "Are you sure?",
-                        text: "You won't be able to revert this!",
-                        icon: "warning",
-                        showCancelButton: true,
-                        confirmButtonColor: "#C00202",
-                        cancelButtonColor: "#6CA925",
-                        confirmButtonText: "Yes, delete it!",
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            const ids = this.checkVendorItems.map((product) => product.id);
-                            axios.post(route("Products.delete.selected"), { product_ids })
-                                .then((response) => {
-                                    this.reload();
-                                });
-                        }
-                    });
-                    this.$root.loader.finish();
-                } catch (error) {
-                    this.convertValidationNotification(error);
-                }
-        },
-
-
-        }
 
 };
 </script>

@@ -2,11 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Inertia\Inertia;
+use App\Http\Requests\Product\CreateProductRequest;
+use App\Http\Requests\Product\UpdateProductRequest;
 use App\Models\Product;
-use App\Http\Controllers\ParentController;
 use domain\Facades\ProductFacade\ProductFacade;
+use Illuminate\Http\Request;
+use Spatie\QueryBuilder\QueryBuilder;
+use Spatie\Query\QueryBuilder\AllowedFilter;
+use Illuminate\Database\Eloquent\Builder;
+use App\Http\Resources\DataResource;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\ParentController;
+use Inertia\Inertia;
+
 
 class ProductController extends ParentController
 {
