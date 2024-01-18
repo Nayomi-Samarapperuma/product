@@ -49,9 +49,9 @@
                                     v-model="search_product.name" placeholder="Product's Name" @keyup="getSearch" />
                             </div>
                              <div class="col-md-2 column__right___padding column__left___padding">
-                                <div for="purchase_uom" class="col-form-label">PRICE</div>
-                                <input type="text" class="form-control form-control-sm" name="price" id="price"
-                                    v-model="search_product.price" placeholder="Product's Price" @keyup="getSearch" />
+                                <div for="purchase_uom" class="col-form-label">Contact</div>
+                                <input type="text" class="form-control form-control-sm" name="contact" id="contact"
+                                    v-model="search_product.Contact" placeholder="Product's Contact" @keyup="getSearch" />
                             </div>
                             <div class="col-md-2 mt-4 column__left___padding">
                                 <a href="javascript:void(0)" @click.prevent="clearFilters"
@@ -69,6 +69,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="row mx-4">
                             <div class="table-responsive">
                                 <div class="d-flex flex-row mb-3 rounded">
@@ -89,19 +90,20 @@
                                             <font-awesome-icon class="icon_item-icon" icon="fa-solid fa-wrench"
                                                 rotation="{270}" color="#505050" />
                                         </div>
-                                        <div class="p-2 border icon_item">
+                                        <div class="p-2 border icon_item" >
                                             <a @click.prevent="activeSelectedItems(checkProductItems)">
                                                 <font-awesome-icon class="icon_item-icon" icon="fa-solid fa-circle-check"
                                                     color="#0bd018" />
                                             </a>
                                         </div>
+
                                             <div class="p-2 border icon_item" >
                                             <a @click.prevent="inactiveSelectedItems(checkProductItems)">
                                                 <font-awesome-icon class="icon_item-icon" icon="fa-solid fa-circle-minus"
                                                     color="#eb0505" />
                                             </a>
                                         </div>
-                                            <div class="p-2 border icon_item">
+                                            <div class="p-2 border icon_item" v-if="this.checkProductItems.length > 0 ">
                                             <a href="javascript:void(0)"
                                                 @click.prevent="deleteSelectedItems(checkProductItems)">
                                                 <font-awesome-icon class="icon_item-icon" icon="fa-solid fa-trash"
@@ -121,14 +123,17 @@
                                         <tr>
                                             <th class="checkArea">
                                                 <div class="form-check mb-4">
-                                                    <input class="form-check-input" type="checkbox"/>
+                                                    <input class="form-check-input" type="checkbox" @click="selectAll"
+                                                   v-if="this.product.length > 0" :checked="this.checkAllItems.length==this.checkProductItems.length"  v-model="checkAllItems" />
                                                 </div>
                                             </th>
                                             <th :class="iconClassHead">Status</th>
                                             <th :class="textClassHead">Code</th>
                                             <th :class="textClassHead">Name</th>
-                                            <th :class="textClassHead">Price</th>
-                                            <th :class="textClassHead">Description</th>
+                                            <th :class="textClassHead">Contact</th>
+                                            <th :class="textClassHead">Address</th>
+                                            <th :class="textClassHead">City</th>
+
                                             <th></th>
                                         </tr>
                                     </thead>
@@ -143,9 +148,9 @@
                                             </td>
                                             <td :class="iconClassBody" class="pt-2">
                                                 <label v-if="product.status == 1"
-                                                    class="badge bg-success text-white fw-bold">Available</label>
+                                                    class="badge bg-success text-white fw-bold">Active</label>
                                                 <label v-if="product.status == 0"
-                                                    class="badge bg-warning text-white fw-bold">Out of Stock</label>
+                                                    class="badge bg-warning text-white fw-bold">Deactive</label>
                                             </td>
                                             <td :class="textClassBody">
                                                 {{ product.code }}
@@ -154,10 +159,13 @@
                                                 {{ product.name }}
                                             </td>
                                             <td :class="textClassBody">
-                                                {{ product.price }}
+                                                {{ product.contact }}
                                             </td>
                                             <td :class="textClassBody">
-                                                {{ product.description }}
+                                                {{ product.address }}
+                                            </td>
+                                             <td :class="textClassBody">
+                                                {{ product.city }}
                                             </td>
                                             <td :class="textClassBody" >
                                                 <a href="javascript:void(0)" @click.prevent="editProduct(product.id)">
@@ -171,6 +179,13 @@
                         </div>
 
                         <div class="flex mt-1 px-3 mx-1 card-footer table-footer align-items-center">
+                            <div class="col-sm-12 col-md-6 p-0">
+                                <div class="dataTables_info column__left___padding" id="DataTables_Table_0_info"
+                                    role="status" aria-live="polite">
+                                    Showing {{ pagination.from }} to {{ pagination.to }} of
+                                    {{ pagination.total }} entries
+                                </div>
+                            </div>
                             <div class="col-sm-12 col-md-6 p-0">
                                 <div class="dataTables_paginate paging_simple_numbers column__right___padding"
                                     id="DataTables_Table_0_paginate">
@@ -199,7 +214,7 @@
                                                     ? 'disabled'
                                                     : ''
                                                 ">
-                                                <a class="page-link" href=""
+                                                <a class="page-link" href="javascript:void(0)"
                                                     @click="setPage(pagination.current_page + 1)">
                                                     <i class="fa-solid fa-angles-right"></i>
                                                 </a>
@@ -240,28 +255,78 @@
                                                 <input type="text" class="form-control form-control-sm" name="code"
                                                     id="code" v-model="product.code" placeholder="Code" required />
                                             </div>
+
+                                            <!-- <small v-if="validationErrors.name" id="msg_code"
+                                                class="text-danger form-text text-error-msg error">{{ validationErrors.code
+                                                }}</small> -->
                                         </div>
-                                        <div class="row mb-1">
+                                             <div class="row mb-1">
                                             <div for="name" class="col-md-3 col-form-label">NAME</div>
                                             <div class="col-md-9">
                                                 <input type="text" class="form-control form-control-sm" name="name"
                                                     id="name" v-model="product.name" placeholder="Name" required />
                                             </div>
+
+                                            <!-- <small v-if="validationErrors.name" id="msg_name"
+                                                class="text-danger form-text text-error-msg error">{{ validationErrors.name
+                                                }}</small> -->
                                         </div>
-                                            <div class="row mb-1">
-                                            <div for="name" class="col-md-3 col-form-label">PRICE</div>
-                                            <div class="col-md-9">
-                                                <input type="text" class="form-control form-control-sm" name="price"
-                                                    id="price" v-model="product.price" placeholder="Price" required />
-                                            </div>
-                                        </div>
-                                            <div class="row mb-1">
-                                            <div for="name" class="col-md-3 col-form-label">Description</div>
+                                             <div class="row mb-1">
+                                            <div for="name" class="col-md-3 col-form-label">DESCRIPTION</div>
                                             <div class="col-md-9">
                                                 <input type="text" class="form-control form-control-sm" name="description"
                                                     id="description" v-model="product.description" placeholder="Description" required />
                                             </div>
+
+                                            <!-- <small v-if="validationErrors.email" id="msg_name"
+                                                class="text-danger form-text text-error-msg error">{{ validationErrors.email
+                                                }}</small> -->
                                         </div>
+                                             <div class="row mb-1">
+                                            <div for="name" class="col-md-3 col-form-label">PRICE</div>
+                                            <div class="col-md-9">
+                                                <input type="text" class="form-control form-control-sm" name="contact"
+                                                    id="price" v-model="product.price" placeholder="Price" required />
+                                            </div>
+
+                                            <!-- <small v-if="validationErrors.contact" id="msg_name"
+                                                class="text-danger form-text text-error-msg error">{{ validationErrors.contact
+                                                }}</small> -->
+                                        </div>
+                                             <!-- <div class="row mb-1">
+                                            <div for="name" class="col-md-3 col-form-label">ADDRESS</div>
+                                            <div class="col-md-9">
+                                                <input type="text" class="form-control form-control-sm" name="address"
+                                                    id="address" v-model="product.address" placeholder="Address" required />
+                                            </div>
+
+                                             <small v-if="validationErrors.address" id="msg_name"
+                                                class="text-danger form-text text-error-msg error">{{ validationErrors.address
+                                                }}</small>
+                                        </div>  -->
+                                        <!-- <div class="row mb-1">
+                                            <div for="name" class="col-md-3 col-form-label">CITY</div>
+                                            <div class="col-md-9">
+                                                <input type="text" class="form-control form-control-sm" name="name"
+                                                    id="city" v-model="product.city" placeholder="city" required />
+                                            </div>
+
+                                             <small v-if="validationErrors.city" id="msg_name"
+                                                class="text-danger form-text text-error-msg error">{{ validationErrors.city
+                                                }}</small>
+                                        </div> -->
+                                        <!-- <div class="row mb-1">
+                                            <div for="name" class="col-md-3 col-form-label">STATE</div>
+                                            <div class="col-md-9">
+                                                <input type="state" class="form-control form-control-sm" name="state"
+                                                    id="state" v-model="product.state" placeholder="State" required />
+                                            </div>
+
+                                             <small v-if="validationErrors.state" id="msg_name"
+                                                class="text-danger form-text text-error-msg error">{{ validationErrors.state
+                                                }}</small>
+                                        </div> -->
+
                                         <div class="text-right mt-2" >
                                             <button type="submit" class="btn btn-round custom-button btn-sm mb-0">
                                                 <font-awesome-icon icon="fa-solid fa-floppy-disk" />
@@ -276,13 +341,13 @@
                 </div>
             </div>
         </template>
-    </AppLayout>
+ </AppLayout>
 </template>
-
 <script>
 import AppLayout from "@/Layouts/AppLayout.vue";
 import { Link } from "@inertiajs/vue3";
 
+// import Multiselect from "vue-multiselect";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
@@ -307,6 +372,7 @@ export default {
         AppLayout,
         Link,
         library,
+        //Multiselect,
     },
     data() {
         return {
@@ -322,6 +388,8 @@ export default {
             pagination: {},
 
             product: {},
+            select_country: null,
+            select_currency: null,
             products: [],
             checkProductItems: [],
             checkAllItems: false,
@@ -347,7 +415,178 @@ export default {
         library.add(faPen);
 
 
+        //this.getProduct()
     },
+
+    watch: {
+
+        checkAllItems(value) {
+            this.products.forEach((item, index) => {
+                if (index !== 0) {
+                    item.selected = value;
+                }
+            });
+            if (this.checkProductItems.length == this. product.length) {
+                this.checkProductItems = [];
+            } else {
+                this.checkProductItems = this.vendors;
+            }
+        },
+        checkProductItems(value) {
+            if (this.checkProductItems.length != this.product.length) {
+                this.checkAllItems = false;
+            }
+        },
+    },
+
+
+     methods: {
+
+        async setPage(page) {
+            this.page = page;
+            this.reload();
+        },
+        async getSearch() {
+            this.page = 1;
+            this.reload();
+        },
+        async perPageChange() {
+            this.reload();
+        },
+        async reload() {
+            this.$root.loader.start();
+            const tableData = (
+                await axios.get(route("product.all"), {
+                    params: {
+                        page: this.page,
+                        per_page: this.pageCount,
+                        "filter[search]": this.search,
+                        search_product_code: this.search_product.code,
+                        search_product_name: this.search_product.name,
+                        search_product_Contact: this.search_product.Contact,
+
+                    },
+                })
+            ).data;
+
+            this.product = tableData.data;
+            this.pagination = tableData.meta;
+
+            this.$root.loader.finish();
+            },
+
+            async getproduct() {
+                this.$nextTick(() => {
+                    this.$root.loader.start();
+                });
+                const product = (await axios.get(route("product.all"))).data;
+                this.product= product.data;
+                this.pagination = product.meta;
+                this.$nextTick(() => {
+                    this.$root.loader.finish();
+                });
+            },
+
+            async createProduct() {
+                //this.resetValidationErrors();
+                try {
+
+                    const product = (await axios.post(route("product.store"), this.product)).data;
+                    console.log(product)
+                    window.location.href = route("product.edit", product.id);
+                    $("#newVendorModal").modal("hide");
+                    this.product= {};
+                    this.$root.notify.success({
+                        title: "Success",
+                        message: "Product created successfully",
+                    });
+                } catch (error) {
+                    //this.convertValidationNotification(error);
+                }
+            },
+
+            async editProduct(productId) {
+
+            window.location.href = route("product.edit", productId);
+        },
+
+            async newProduct() {
+                this.$root.loader.start();
+                this.product= {};
+                $("#newProductModal").modal("show");
+                this.$root.loader.finish();
+            },
+
+            async clearFilters() {
+                this.search_product = {};
+                this.reload();
+            },
+
+            async inactiveSelectedItems(checkProductItems) {
+            this.$root.loader.start();
+            const ids = this.checkProductItems.map((checkProductItems) =>this.product.id);
+            axios.post(route("product.inactive.selected"), { ids })
+                .then((response) => {
+                    this.checkVendorItems = [];
+                    this.reload();
+                });
+            this.$root.loader.finish();
+            },
+
+            async activeSelectedItems(checkProductItems) {
+                this.$root.loader.start();
+                const ids = this.checkProductItems.map((product) => product.id);
+                axios.post(route("product.active.selected"), { ids }).then((response) => {
+                    this.checkVendorItems = [];
+                    this.reload();
+                });
+                this.$root.loader.finish();
+            },
+
+            selectAll: function (event) {
+                if (event.target.checked == false) {
+                    this.checkVendorItems = [];
+                } else {
+                    this.product.forEach((product) => {
+                        this.checkVendorItems.push(product.id);
+                    });
+                }
+            },
+
+
+            async deleteSelectedItems(checkProductItems) {
+                this.$root.loader.start();
+                try {
+                    Swal.fire({
+                        title: "Are you sure?",
+                        text: "You won't be able to revert this!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#C00202", // Green
+                        cancelButtonColor: "#6CA925", // Secondary Color
+                        confirmButtonText: "Yes, delete it!",
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            const ids = this.checkProductItems.map((product) => product.id);
+                            axios.post(route("product.delete.selected"), { ids })
+                                .then((response) => {
+                                    this.reload();
+                                });
+                            // Swal.fire(
+                            //     "Deleted!",
+                            //     `Vendor has been deleted.`,
+                            //     "success"
+                            // );
+                        }
+                    });
+                    this.$root.loader.finish();
+                } catch (error) {
+                    this.convertValidationNotification(error);
+                }
+        },
+
+
+        }
 
 };
 </script>
@@ -367,4 +606,6 @@ export default {
     background-color: #6343e9;
     color: #ffffff !important;
 }
+
+
 </style>

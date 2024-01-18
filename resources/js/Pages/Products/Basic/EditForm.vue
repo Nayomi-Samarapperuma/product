@@ -19,12 +19,11 @@
                 id="code"
                 v-model="product.code"
               />
-              <small
+              <!-- <small
                 v-if="validationErrors.code"
                 id="msg_code"
                 class="text-danger form-text text-error-msg error"
-                >{{ validationErrors.code }}</small
-              >
+                >{{ validationErrors.code }}</small> -->
             </div>
           </div>
           <div class="row mb-1">
@@ -37,12 +36,11 @@
                 id="name"
                 v-model="product.name"
               />
-              <small
+              <!-- <small
                 v-if="validationErrors.name"
                 id="msg_name"
                 class="text-danger form-text text-error-msg error"
-                >{{ validationErrors.name }}</small
-              >
+                >{{ validationErrors.name }}</small> -->
             </div>
           </div>
           <div class="row mb-1">
@@ -55,12 +53,11 @@
                 id="price"
                 v-model="product.price"
               />
-              <small
+              <!-- <small
                 v-if="validationErrors.name"
                 id="msg_name"
                 class="text-danger form-text text-error-msg error"
-                >{{ validationErrors.email }}</small
-              >
+                >{{ validationErrors.email }}</small> -->
             </div>
           </div>
           <div class="row mb-1">
@@ -72,10 +69,10 @@
                 name="description"
                 id="description"
                 v-model="product.description"/>
-              <small
+              <!-- <small
                 v-if="validationErrors.description"
                 id="msg_name"
-                class="text-danger form-text text-error-msg error">{{ validationErrors.description }}</small>
+                class="text-danger form-text text-error-msg error">{{ validationErrors.description }}</small> -->
             </div>
            </div>
           <div class="text-right">
@@ -115,7 +112,7 @@
       library,
     },
     props: {
-      customerId: {
+      productId: {
         type: Number,
         required: true,
       },
@@ -146,7 +143,7 @@
       },
 
       async updateProductData() {
-        this.resetValidationErrors();
+        //this.resetValidationErrors();
         try {
           await axios.post(
             route("product.update", this.productId),
@@ -180,7 +177,7 @@
             }
           });
         } catch (error) {
-          this.convertValidationNotification(error);
+          //this.convertValidationNotification(error);
         }
       },
     },

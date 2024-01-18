@@ -52,7 +52,7 @@
                         <div class="card-body">
                             <div class="tab-content" id="myTabContent">
                                 <div class="tab-pane fade show active" id="basic-data" role="tabpanel">
-                                    <BasicEditForm :productId="this.product.id" />
+                                    <EditForm :productId="this.product.id" />
                                 </div>
                             </div>
                         </div>
@@ -71,7 +71,7 @@ import { usePage } from "@inertiajs/vue3";
 import axios from "axios";
 import Swal from "sweetalert2";
 
-import BasicEditForm from "@/Pages/Products/Basic/EditForm.vue";
+import EditForm from "@/Pages/Products/Basic/EditForm.vue";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
     faHouse,
@@ -84,7 +84,7 @@ export default {
     components: {
         AppLayout,
         Link,
-        BasicEditForm,
+        EditForm,
         library,
     },
     props: {

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Product\CreateProductRequest;
+use App\Http\Requests\CreateProductRequest;
 use App\Http\Requests\Product\UpdateProductRequest;
 use App\Models\Product;
 use domain\Facades\ProductFacade\ProductFacade;
@@ -24,10 +24,43 @@ class ProductController extends ParentController
         return Inertia::render('Products/index');
     }
 
-    public function store(ProductRequest $request)
+    public function store(CreateProductRequest $request)
     {
-      ProductFacade::store($request->all());
-      return redirect()->back;
+      return ProductFacade::store($request->all());
+    }
+
+    public function all()
+    {
+        $query = Product::orderBy('id', 'desc');
+        if (request('search_vendor_code')) {
+            $code = request('search_vendor_code');
+            $query->where('code', $code);
+        }
+        if (request('search_vendor_name')) {
+            $name = request('search_vendor_name');
+            $query->where('name', 'like', "%{$name}%");
+        }
+        if (request('search_vendor_country')) {
+            $contact = request('search_vendor_country');
+            $query->where('contact', $contact);
+        }
+
+        $payload = QueryBuilder::for($query)
+            ->allowedSorts(['code'])
+            ->allowedFilters(
+                AllowedFilter::callback('search', function ($query, $value) {
+                    $query->whereHas('countries', function (Builder $query) use ($value) {
+                        $query->where('name', 'like', "%{$value}%");
+                    });
+                    $query->orWhereHas('currencies', function (Builder $query) use ($value) {
+                        $query->where('name', 'like', "%{$value}%");
+                    });
+                    $query->orWhere('code', 'like', "%{$value}%");
+                    $query->orWhere('name', 'like', "%{$value}%");
+                })
+            )
+            ->paginate(request('per_page', config('basic.pagination_per_page')));
+        return DataResource::collection($payload);
     }
 
     public function get(int $product_id)

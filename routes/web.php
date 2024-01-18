@@ -24,6 +24,7 @@ Route::get('/', [HomeController::class, "index"])->name('dashboard');
 
 Route::prefix('products')->group(function () {
     Route::get('/', [ProductController::class, "index"])->name('product.index');
+    Route::get('/all', [ProductController::class, "all"])->name('product.all');
     Route::post('/store', [ProductController::class, "store"])->name('product.store');
     Route::delete('/{product_id}/delete', [ProductController::class, "delete"])->name('product.delete');
     Route::get('/{product_id}/edit', [ProductController::class, "edit"])->name('product.edit');

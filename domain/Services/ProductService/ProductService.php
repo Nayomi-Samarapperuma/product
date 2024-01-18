@@ -40,7 +40,7 @@ class ProductService
      */
     public function store(array $data)
     {
-        return $this->Product->create($data);
+        return $this->product->create($data);
     }
 
     /**
@@ -52,7 +52,7 @@ class ProductService
      */
     public function get($product_id)
     {
-        return $this->Product->find($product_id);
+        return $this->product->find($product_id);
     }
 
     /**
@@ -65,8 +65,8 @@ class ProductService
      */
     public function update(array $data, $product_id)
     {
-        $Product = $this->Product->find($product_id);
-        return $Product->update($this->edit($Product, $data));
+        $product = $this->product->find($product_id);
+        return $product->update($this->edit($product, $data));
     }
 
 
@@ -112,11 +112,11 @@ class ProductService
      {
          $ids = $data->input('ids');
 
-         $Products = Product::whereIn('id', $ids)->get();
+         $products = Product::whereIn('id', $ids)->get();
 
-         foreach ($Products as $Product) {
-             $Product->status = 0;
-             $Product->update();
+         foreach ($products as $product) {
+             $product->status = 0;
+             $product->update();
          }
 
          return response()->json([
@@ -134,11 +134,11 @@ class ProductService
      {
          $ids = $data->input('ids');
 
-         $Products = Product::whereIn('id', $ids)->get();
+         $products = Product::whereIn('id', $ids)->get();
 
-         foreach ($Products as $Product) {
-             $Product->status = 1;
-             $Product->update();
+         foreach ($products as $product) {
+             $product->status = 1;
+             $product->update();
          }
 
          return response()->json([
@@ -154,6 +154,6 @@ class ProductService
      */
     public function delete(int $product_id)
     {
-        return $this->Product->find($product_id)->delete();
+        return $this->product->find($product_id)->delete();
     }
 }
