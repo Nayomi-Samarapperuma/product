@@ -25,7 +25,7 @@ class CreateProductRequest extends FormRequest
             'code' => ['required','unique:products,code','string'],
             'name' => ['required','string','max:255'],
             "description"=> ['required','string','max:255'],
-            "price"=> ['required','string','max:255'],
+            "price"=> ['required','numeric'],
         ];
     }
 }

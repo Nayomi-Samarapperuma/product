@@ -8,7 +8,7 @@ use App\Models\Product;
 use domain\Facades\ProductFacade\ProductFacade;
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\QueryBuilder;
-use Spatie\Query\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\AllowedFilter;
 use Illuminate\Database\Eloquent\Builder;
 use App\Http\Resources\DataResource;
 use Illuminate\Support\Facades\Log;
@@ -27,32 +27,33 @@ class ProductController extends ParentController
     public function store(CreateProductRequest $request)
     {
       return ProductFacade::store($request->all());
+      
     }
 
     public function all()
     {
         $query = Product::orderBy('id', 'desc');
-        if (request('search_vendor_code')) {
-            $code = request('search_vendor_code');
+        if (request('search_product_code')) {
+            $code = request('search_product_code');
             $query->where('code', $code);
         }
-        if (request('search_vendor_name')) {
-            $name = request('search_vendor_name');
+        if (request('search_product_name')) {
+            $name = request('search_product_name');
             $query->where('name', 'like', "%{$name}%");
         }
-        if (request('search_vendor_country')) {
-            $contact = request('search_vendor_country');
-            $query->where('contact', $contact);
+        if (request('search_product_description')) {
+            $contact = request('search_product_description');
+            $query->where('price', $price);
         }
 
         $payload = QueryBuilder::for($query)
             ->allowedSorts(['code'])
             ->allowedFilters(
                 AllowedFilter::callback('search', function ($query, $value) {
-                    $query->whereHas('countries', function (Builder $query) use ($value) {
+                    $query->whereHas('name', function (Builder $query) use ($value) {
                         $query->where('name', 'like', "%{$value}%");
                     });
-                    $query->orWhereHas('currencies', function (Builder $query) use ($value) {
+                    $query->orWhereHas('description', function (Builder $query) use ($value) {
                         $query->where('name', 'like', "%{$value}%");
                     });
                     $query->orWhere('code', 'like', "%{$value}%");
@@ -89,17 +90,7 @@ class ProductController extends ParentController
     {
         return ProductFacade::deleteSelected($request);
     }
-
-    public function inactiveSelectedItems(Request $request)
-    {
-        return ProductFacade::inactive($request);
-    }
-
-    public function activeSelectedItems(Request $request)
-    {
-        return ProductFacade::active($request);
-    }
-
+    
 }
 
 

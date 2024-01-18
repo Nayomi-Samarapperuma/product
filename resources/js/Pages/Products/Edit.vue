@@ -7,7 +7,7 @@
                         <div class="py-4 row align-items-center">
                             <div class="col-lg-6">
                                 <h6 class="mb-0 h2 text-dark d-inline-block">
-                                   Product
+                                    Product Management
                                 </h6>
                                 <nav aria-label="breadcrumb" class="d-none d-md-block">
                                     <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
@@ -18,7 +18,7 @@
                                         </li>
                                         <li class="breadcrumb-item">
                                             <Link  :href="route('product.index')" class="breadcrumb-text">
-                                           Products Management
+                                           Product Management
                                             </Link>
                                         </li>
                                         <li class="breadcrumb-item active breadcrumb-text" aria-current="page">
@@ -41,7 +41,7 @@
                             <li class="mb-2 nav-item">
                                 <a class="nav-link active" id="basic-data-tab" data-toggle="tab" href="#basic-data"
                                     role="tab" aria-controls="basic-data" aria-selected="true">
-                                     Products  Data</a>
+                                     Basic Data</a>
                             </li>
                             <li hidden></li>
                         </ul>

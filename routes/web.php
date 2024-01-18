@@ -29,10 +29,8 @@ Route::prefix('products')->group(function () {
     Route::delete('/{product_id}/delete', [ProductController::class, "delete"])->name('product.delete');
     Route::get('/{product_id}/edit', [ProductController::class, "edit"])->name('product.edit');
     Route::get('/{product_id}/get', [ProductController::class, "get"])->name('product.get');
-    Route::post('/{product_id}/basic/update', [ProductController::class, "update"])->name('product.basic.update');
+    Route::post('/{product_id}/basic/update', [ProductController::class, "update"])->name('product.update');
     Route::post('/{product_id}/select/product/delete', [ProductController::class, 'deleteSelectedItems'])->name('product.delete.selected');
-    Route::post('/select/product/inactive', [ProductController::class, 'inactiveSelectedItems'])->name('product.inactive.selected');
-    Route::post('/select/product/active', [ProductController::class, 'activeSelectedItems'])->name('product.active.selected');
 
 
 });

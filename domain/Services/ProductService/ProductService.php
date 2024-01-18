@@ -28,7 +28,7 @@ class ProductService
      */
     public function all()
     {
-        return $this->Product->all();
+        return $this->product->all();
     }
 
     /**
@@ -100,51 +100,6 @@ class ProductService
           'success' => true,
         ]);
     }
-
-    /**
-     * inactive
-     *
-     * @param  mixed $data
-     * @return void
-     */
-
-     public function inactive($data)
-     {
-         $ids = $data->input('ids');
-
-         $products = Product::whereIn('id', $ids)->get();
-
-         foreach ($products as $product) {
-             $product->status = 0;
-             $product->update();
-         }
-
-         return response()->json([
-           'success' => true,
-         ]);
-     }
-
-     /**
-     * active
-     *
-     * @param  mixed $data
-     * @return void
-     */
-     public function active($data)
-     {
-         $ids = $data->input('ids');
-
-         $products = Product::whereIn('id', $ids)->get();
-
-         foreach ($products as $product) {
-             $product->status = 1;
-             $product->update();
-         }
-
-         return response()->json([
-          'success' => true,
-         ]);
-     }
 
     /* * Delete
      * delete specific data using product_id
