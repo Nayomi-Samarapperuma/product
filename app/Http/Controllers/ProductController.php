@@ -21,7 +21,7 @@ class ProductController extends ParentController
 {
     public function index()
     {
-        return Inertia::render('Products/index');
+        return Inertia::render('Products/Index');
     }
 
     public function store(CreateProductRequest $request)
@@ -73,7 +73,7 @@ class ProductController extends ParentController
     public function edit(int $product_id)
     {
         $response['product'] = ProductFacade::get($product_id);
-        return Inertia::render('Products/edit', $response);
+        return Inertia::render('Products/Edit', $response);
     }
 
     public function update(UpdateProductRequest $request, int $product_id)
