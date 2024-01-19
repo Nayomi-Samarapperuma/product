@@ -290,7 +290,7 @@
 import AppLayout from "@/Layouts/AppLayout.vue";
 import { Link } from "@inertiajs/vue3";
 
-// import Multiselect from "vue-multiselect";
+ import Multiselect from "vue-multiselect";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
@@ -315,7 +315,7 @@ export default {
         AppLayout,
         Link,
         library,
-        //Multiselect,
+        Multiselect,
     },
     data() {
         return {
@@ -360,27 +360,6 @@ export default {
 
         this.getProduct()
     },
-
-    // watch: {
-
-    //     checkAllItems(value) {
-    //         this.products.forEach((item, index) => {
-    //             if (index !== 0) {
-    //                 item.selected = value;
-    //             }
-    //         });
-    //         if (this.checkProductItems.length == this. product.length) {
-    //             this.checkProductItems = [];
-    //         } else {
-    //             this.checkProductItems = this.vendors;
-    //         }
-    //     },
-    //     checkProductItems(value) {
-    //         if (this.checkProductItems.length != this.product.length) {
-    //             this.checkAllItems = false;
-    //         }
-    //     },
-    // },
 
 
      methods: {

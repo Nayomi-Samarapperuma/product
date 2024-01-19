@@ -66,8 +66,6 @@
 <script>
 import AppLayout from "@/Layouts/AppLayout.vue";
 import { Link } from "@inertiajs/vue3";
-import { computed } from "vue";
-import { usePage } from "@inertiajs/vue3";
 import axios from "axios";
 import Swal from "sweetalert2";
 
@@ -86,6 +84,9 @@ export default {
         Link,
         EditForm,
         library,
+        axios,
+        Swal
+
     },
     props: {
         product: Object,

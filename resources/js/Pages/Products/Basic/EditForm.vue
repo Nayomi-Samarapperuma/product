@@ -43,7 +43,7 @@
             <font-awesome-icon icon="fa-solid fa-trash" />
             DELETE
           </button>
-          <button type="submit" class="btn btn-round custom-button btn-sm mb-0">
+          <button type="submit" class="btn btn-round custom-button btn-sm mb-0" @click.prevent="updateProduct">
             <font-awesome-icon icon="fa-solid fa-floppy-disk" />
             <Link  :href="route('product.index')" class="breadcrumb-text">
             UPDATE
