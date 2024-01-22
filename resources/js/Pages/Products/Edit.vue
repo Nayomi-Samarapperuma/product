@@ -41,7 +41,14 @@
                             <li class="mb-2 nav-item">
                                 <a class="nav-link active" id="basic-data-tab" data-toggle="tab" href="#basic-data"
                                     role="tab" aria-controls="basic-data" aria-selected="true">
-                                     Basic Data</a>
+                                     Basic Data
+                                </a>
+                            </li>
+                            <li class="mb-2 nav-item">
+                                <a class="nav-link" id="product-inventry-tab" data-toggle="tab" href="#inventry-info" role="tab"
+                                    aria-controls="inventry-info" aria-selected="true">
+                                    Product  Inventry
+                                </a>
                             </li>
                             <li hidden></li>
                         </ul>
@@ -53,6 +60,9 @@
                             <div class="tab-content" id="myTabContent">
                                 <div class="tab-pane fade show active" id="basic-data" role="tabpanel">
                                     <EditForm :productId="this.product.id" />
+                                </div>
+                                <div class="tab-pane fade show" id="inventry-info" role="tabpanel">
+                                    <ProductInventry :productId="this.product.id" />
                                 </div>
                             </div>
                         </div>
@@ -70,6 +80,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 
 import EditForm from "@/Pages/Products/Basic/EditForm.vue";
+import ProductInventry from "@/Pages/Products/Basic/ProductInventry/All.vue";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
     faHouse,
@@ -83,6 +94,7 @@ export default {
         AppLayout,
         Link,
         EditForm,
+        ProductInventry,
         library,
         axios,
         Swal
@@ -110,7 +122,7 @@ export default {
 }
 
 .nav-link.active {
-    background-color: #6343e9 !important;
-    color: #fff !important;
+    background-color: #e8e6f8 !important;
+    color: #060000 !important;
 }
 </style>

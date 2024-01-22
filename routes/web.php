@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductInventryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,9 @@ Route::prefix('products')->group(function () {
     Route::post('/{product_id}/basic/update', [ProductController::class, "update"])->name('product.update');
     Route::post('/{product_id}/select/product/delete', [ProductController::class, 'deleteSelectedItems'])->name('product.delete.selected');
 
+    Route::post('/{product_id}/inventry/update', [ProductInventryController::class, "update"])->name('product.inventry.update');
+    Route::get('/{product_id}/inventry/all', [ProductInventryController::class, "all"])->name('product.inventry.all');
+    Route::delete('/{product_id}/inventry/delete', [ProductInventryController::class, "delete"])->name('product.inventry.delete');
 
 });
 

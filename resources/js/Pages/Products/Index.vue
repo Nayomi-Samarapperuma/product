@@ -38,27 +38,27 @@
                 <div class="col-lg-12">
                     <div class="card shadow">
                         <div class="row my-3 mx-2">
-                            <!-- <div class="col-md-2 column__right___padding">
+                            <div class="col-md-2 column__right___padding">
                                 <div for="purchase_uom" class="col-form-label">CODE</div>
                                 <input type="text" class="form-control form-control-sm" name="code" id="code"
                                     v-model="search_product.code" placeholder="Code" @keyup="getSearch" />
-                            </div> -->
-                            <!-- <div class="col-md-2 column__right___padding column__left___padding">
+                            </div>
+                            <div class="col-md-2 column__right___padding column__left___padding">
                                 <div for="purchase_uom" class="col-form-label">NAME</div>
                                 <input type="text" class="form-control form-control-sm" name="name" id="name"
                                     v-model="search_product.name" placeholder="Product's Name" @keyup="getSearch" />
-                            </div> -->
-                             <!-- <div class="col-md-2 column__right___padding column__left___padding">
-                                <div for="purchase_uom" class="col-form-label">Contact</div>
-                                <input type="text" class="form-control form-control-sm" name="contact" id="contact"
-                                    v-model="search_product.Contact" placeholder="Product's Contact" @keyup="getSearch" />
-                            </div> -->
-                            <!-- <div class="col-md-2 mt-4 column__left___padding">
+                            </div>
+                             <div class="col-md-2 column__right___padding column__left___padding">
+                                <div for="purchase_uom" class="col-form-label">DESCRIPTION</div>
+                                <input type="text" class="form-control form-control-sm" name="description" id="description"
+                                    v-model="search_product.Contact" placeholder="Product's Description" @keyup="getSearch" />
+                            </div>
+                            <div class="col-md-2 mt-4 column__left___padding">
                                 <a href="javascript:void(0)" @click.prevent="clearFilters"
                                     class="btn btn-sm btn-ash float-end mt-2 pt-2">
                                     CLEAR
                                 </a>
-                            </div> -->
+                            </div>
                             <div class="text-muted ml-auto mx-4 mt-4">
                                 <div class="inline-block">
                                     <select class="form-control form-control-sm per-page-entry mt-2" :value="100"
@@ -74,7 +74,7 @@
                             <div class="table-responsive">
                                 <div class="d-flex flex-row mb-3 rounded">
                                     <div class="left d-flex">
-                                        <!-- <div class="p-2 border icon_item">
+                                        <div class="p-2 border icon_item">
                                             <font-awesome-icon class="icon_item-icon" icon="fa-solid fa-clone"
                                                 color="#505050" />
                                         </div>
@@ -96,14 +96,14 @@
                                                 <font-awesome-icon class="icon_item-icon" icon="fa-solid fa-trash"
                                                     color="#eb0505" />
                                             </a>
-                                        </div> -->
+                                        </div>
                                     </div>
-                                    <!-- <div class="right d-flex ml-auto">
+                                    <div class="right d-flex ml-auto">
                                         <div class="p-2 border icon_item">
                                             <font-awesome-icon class="icon_item-icon" icon="fa-solid fa-print"
                                                 color="#505050" />
                                         </div>
-                                    </div> -->
+                                    </div>
                                 </div>
                                 <table class="table">
                                     <thead>
@@ -123,7 +123,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="product in products" @click="editProduct(product.id)" :key="product.id" :class="rowClass">
+                                        <tr v-for="product in products" :key="product.id" :class="rowClass">
                                             <td class="checkArea">
                                                 <div class="form-check mb-4">
                                                     <input class="form-check-input" type="checkbox"

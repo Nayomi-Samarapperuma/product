@@ -25,7 +25,7 @@ class UpdateProductRequest extends FormRequest
     {
         return [
 
-            'code' => ['unique:vendors,code','string'],
+            'code' => ['unique:products,code','string'],
             'name' => ['string','max:255'],
             "description"=> ['string','max:255'],
             "price"=> ['numeric'],

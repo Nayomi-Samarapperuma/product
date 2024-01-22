@@ -151,11 +151,15 @@ export default {
 .custom-button {
   background-color: #ffffff;
   border-color: #6343e9;
-  color: #6343e9 !important;
+  color: #dfd9f3 !important;
 }
 
 .custom-button:hover {
-  background-color: #6343e9;
+  background-color: #c7bdf1;
   color: #ffffff !important;
+}
+
+.breadcrumb-text {
+    color: #6343e9 !important;
 }
 </style>
